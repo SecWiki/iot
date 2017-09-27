@@ -87,13 +87,13 @@
 <script>
 var themeMenus = {};
 
-  themeMenus["/主页"] = "Home"; 
+  themeMenus["/Home"] = "主页"; 
 
-  themeMenus["/书籍"] = "books"; 
+  themeMenus["/books"] = "书籍"; 
 
-  themeMenus["/工具"] = "tools"; 
+  themeMenus["/tools"] = "工具"; 
 
-  themeMenus["/关于我们"] = "About"; 
+  themeMenus["/about"] = "关于"; 
 
 </script>
 
@@ -122,13 +122,13 @@ var themeMenus = {};
 
               <ul id="main-nav" class="nmenu sf-js-enabled">
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/主页">Home</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/Home">主页</a> </li>
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/书籍">books</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/books">书籍</a> </li>
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/工具">tools</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tools">工具</a> </li>
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/关于我们">About</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">关于</a> </li>
                     
               </ul>
             </div>
@@ -165,7 +165,7 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-路由器固件安全分析技术-一" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-路由器固件安全分析技术-一"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -471,15 +471,6 @@ var a = new Donate({
 </article>
 
 <!-- Table of Contents -->
-
-  <aside id="sidebar">
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">Contents</strong>
-    
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建环境篇"><span class="nav-number">2.</span> <span class="nav-text">搭建环境篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IDA-pro"><span class="nav-number">2.1.</span> <span class="nav-text">IDA pro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binwalk"><span class="nav-number">2.2.</span> <span class="nav-text">Binwalk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu"><span class="nav-number">2.3.</span> <span class="nav-text">qemu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译环境"><span class="nav-number">2.4.</span> <span class="nav-text">交叉编译环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统环境网络配置"><span class="nav-number">2.5.</span> <span class="nav-text">系统环境网络配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指令分析篇"><span class="nav-number">3.</span> <span class="nav-text">指令分析篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">3.1.</span> <span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见指令"><span class="nav-number">3.2.</span> <span class="nav-text">常见指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mips32指令编码类型"><span class="nav-number">3.2.1.</span> <span class="nav-text">mips32指令编码类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算术类"><span class="nav-number">3.2.2.</span> <span class="nav-text">算术类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load-store类"><span class="nav-number">3.2.3.</span> <span class="nav-text">load/store类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳转指令"><span class="nav-number">3.2.4.</span> <span class="nav-text">跳转指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支跳转指令"><span class="nav-number">3.2.5.</span> <span class="nav-text">分支跳转指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#syscall"><span class="nav-number">3.2.6.</span> <span class="nav-text">syscall</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">3.3.</span> <span class="nav-text">特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寻址方式"><span class="nav-number">3.3.1.</span> <span class="nav-text">寻址方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存表示方法"><span class="nav-number">3.3.2.</span> <span class="nav-text">内存表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流水线特性"><span class="nav-number">3.3.3.</span> <span class="nav-text">流水线特性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后门分析篇"><span class="nav-number">4.</span> <span class="nav-text">后门分析篇</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞利用基础篇"><span class="nav-number">5.</span> <span class="nav-text">漏洞利用基础篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本溢出原理"><span class="nav-number">5.1.</span> <span class="nav-text">基本溢出原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本payload编写方法"><span class="nav-number">5.2.</span> <span class="nav-text">基本payload编写方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol>
-    
-    </div>
-  </aside>
 </section>
         
       </div>
@@ -513,13 +504,13 @@ var a = new Donate({
     </div>
     <!-- <nav id="mobile-nav">
   
-    <a href="/主页" class="mobile-nav-link">Home</a>
+    <a href="/Home" class="mobile-nav-link">主页</a>
   
-    <a href="/书籍" class="mobile-nav-link">books</a>
+    <a href="/books" class="mobile-nav-link">书籍</a>
   
-    <a href="/工具" class="mobile-nav-link">tools</a>
+    <a href="/tools" class="mobile-nav-link">工具</a>
   
-    <a href="/关于我们" class="mobile-nav-link">about</a>
+    <a href="/about" class="mobile-nav-link">关于</a>
   
 </nav> -->
     
