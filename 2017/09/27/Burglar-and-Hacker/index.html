@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>burglar and hacker | 物联网安全技术研究</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="本文对iSmartAlarm厂商的iSmartAlarm Cube产品相关的五个漏洞做了演示。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Burglar and Hacker">
+<meta property="og:url" content="http://yoursite.com/2017/09/27/Burglar-and-Hacker/index.html">
+<meta property="og:site_name" content="物联网安全技术研究">
+<meta property="og:description" content="本文对iSmartAlarm厂商的iSmartAlarm Cube产品相关的五个漏洞做了演示。">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/Burglar-and-Hacker/ssrf.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/Burglar-and-Hacker/GetIpuEnr.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/Burglar-and-Hacker/12345_port.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/Burglar-and-Hacker/Dos.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/Burglar-and-Hacker/step1.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/Burglar-and-Hacker/step2.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/Burglar-and-Hacker/step3.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/Burglar-and-Hacker/internal_iSmartAlarm_website.png">
+<meta property="og:updated_time" content="2017-09-27T04:42:28.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Burglar and Hacker">
+<meta name="twitter:description" content="本文对iSmartAlarm厂商的iSmartAlarm Cube产品相关的五个漏洞做了演示。">
+<meta name="twitter:image" content="http://yoursite.com/2017/09/27/Burglar-and-Hacker/ssrf.png">
+  
+    <link rel="alternate" href="/atom.xml" title="物联网安全技术研究" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/hiero.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+<script>
+var themeMenus = {};
+
+  themeMenus["/主页"] = "Home"; 
+
+  themeMenus["/书籍"] = "books"; 
+
+  themeMenus["/工具"] = "tools"; 
+
+  themeMenus["/关于我们"] = "About"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="物联网安全技术研究" rel="home"> 物联网安全技术研究 </a>
+            
+          </h1>
+
+          
+            <div class="site-description">一个专注于物联网安全技术研究与交流的小站</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/主页">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/书籍">books</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/工具">tools</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/关于我们">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Burglar-and-Hacker" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Burglar and Hacker
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	Posted on <a href="/2017/09/27/Burglar-and-Hacker/" class="article-date">
+	  <time datetime="2017-09-27T04:23:02.000Z" itemprop="datePublished">September 27, 2017</time>
+	</a>
+
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文对iSmartAlarm厂商的iSmartAlarm Cube产品相关的五个漏洞做了演示。<br><a id="more"></a></p>
+<p>原文链接:<a href="http://dojo.bullguard.com/blog/burglar-hacker-when-a-physical-security-is-compromised-by-iot-vulnerabilities/" target="_blank" rel="external">http://dojo.bullguard.com/blog/burglar-hacker-when-a-physical-security-is-compromised-by-iot-vulnerabilities/</a></p>
+<p>关于文中实验的说明:由于编辑人员时间和资源的限制，暂时没有实际验证。如果后续有条件的话，会实际验证一下。<br>关于翻译的说明:遣词造句的功夫还欠缺火候，如有错误，烦请指出。</p>
+<h1 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h1><p>物联网是下一个趋势。数字化和可接入互联网的设备正在组成和构建一种新的网络和生态系统。据Gartner介绍，到2020年，将有208亿个物联网设备连接到世界各地。这些设备几乎可以随时随地用于家庭，汽车和可穿戴设备。随着市场的增长，网络威胁也在增加。每一个接入网络的设备都容易受到一些可能导致设备损坏和窃取隐私信息的攻击。许多研究表明，安全和隐私是消费者采用IoT设备进入日常生活的首要关注点。Dojo发现iSmartAlarm有多重漏洞，容易成为攻击目标。一旦攻击者渗透到家庭/商业网络并找到这样的设备，他们就能够完全控制这些设备。至于控制这些设备有什么危害，则不必多言了。本文打算详细介绍iSmartAlarm的漏洞细节及其影响。</p>
+<h1 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h1><p>iSmartAlarm有多个能够导致设备被完全控制的漏洞。未授权的攻击者能够通过一些手段彻底破坏设备的功能，还有完整性和可靠性，从而长久地取得对iSmartAlarm设备的控制权限。例如，攻击者可以访问整个iSmartAlarm客户群，其用户的私人数据，用户的家庭地址，报警撤防以及“欢迎来到我的家庭标志”。</p>
+<p>相关CVE总结:<br>|————-|——|———————————-|—————-|<br>|CVE-2017-7726|Remote|Missing SSL Certificate Validation|iSmartAlarm Cube|<br>|CVE-2017-7727|Remote|Server Side Request Forgery       |iSmartAlarm     |<br>|CVE-2017-7728|Remote|Authentication Bypass             |iSmartAlarm Cube|<br>|CVE-2017-7729|Remote|Incorrect Access Control          |iSmartAlarm Cube|<br>|CVE-2017-7730|Remote|Denial of Service                 |iSmartAlarm Cube|</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为网络安全研究员，我真的想测试接入互联网报警系统，看看我能从中得到什么。研究过程中，我选择了iSmartAlarm厂商的产品，它占有很大的市场份额，还收到不少好评。<a href="https://www.ismartalarm.com/why-ismartalarm#awards_and_reviews" target="_blank" rel="external">iSmartAlarm收到的好评</a></p>
+<p>iSmartAlarm是智能报警系统领域的领先的IoT制造商之一。它提供了一个完整的报警系统,由报警器、监察相机、锁构成。它除了具备常见的报警系统所具有的功能，还有网络设备必要的功能:可以通过app弹出警报和远程操控设备。很合适的研究对象。</p>
+<h2 id="SSL-Certificate-Validation-Vulnerability"><a href="#SSL-Certificate-Validation-Vulnerability" class="headerlink" title="SSL Certificate Validation Vulnerability"></a>SSL Certificate Validation Vulnerability</h2><p>在搭建好实验环境，设备和程序正常运行之后，我找到了第一个漏洞。iSmartAlarm cube的证书校验漏洞。在设备开始运行的时候，iSmartAlarm cube会首先和运行在iSmartAlarm服务器上、监听端口为8443的程序建立连接。然而，cube在SSL握手阶段并不校验来自服务端的SSL证书的真伪。因此，在伪造的自签证书后，可以看到和控制来往的数据。</p>
+<h2 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h2><p>iSmartAlarm的一个API包含重定向，这导致我尝试利用它。<br><img src="/2017/09/27/Burglar-and-Hacker/ssrf.png" alt=""><br>令人惊讶的是它能正常执行！这是一个好的开始，但这不能满足我，我想控制任何人的报警系统。在检查iSmartAlarm的API时，我能够获取加密密钥。<br><img src="/2017/09/27/Burglar-and-Hacker/GetIpuEnr.png" alt=""></p>
+<h2 id="Denial-of-service-vulnerability"><a href="#Denial-of-service-vulnerability" class="headerlink" title="Denial of service vulnerability"></a>Denial of service vulnerability</h2><p>我想看看app和cube的通信过程，并找出是否可以在没有app的情况下远程控制报警系统。iSmartAlarm的app有两种模式。一种模式是cube和app在局域网中。另一种模式是当它们在不同的网络上时。当两者处于局域网中，能够嗅探到cube和app之间的加密流量，cube监听了12345端口。<br><img src="/2017/09/27/Burglar-and-Hacker/12345_port.png" alt=""></p>
+<p>因为cube和app通过局域网直接进行通信，所以我能够对cube进行Dos攻击，让它无法为正常用户提供服务。<br><img src="/2017/09/27/Burglar-and-Hacker/Dos.png" alt=""><br>在对cube进行DoS攻击的时候，不论app是运行在远程模式或者本地模式，正常用户将会失去对报警系统的控制权。</p>
+<h2 id="Authentication-Bypass-and-Incorrect-Access-Control"><a href="#Authentication-Bypass-and-Incorrect-Access-Control" class="headerlink" title="Authentication Bypass and Incorrect Access Control"></a>Authentication Bypass and Incorrect Access Control</h2><p>分析协议花费了一些时间，这超出了本文的范围，但最终cube和app之间的协议如下所示:<br>首先app和cube通过复杂的4次握手进行身份验证:<br><em>App</em>:ISAT\x01\x00<em>3\x01\x00</em>7<br><img src="/2017/09/27/Burglar-and-Hacker/step1.png" alt=""></p>
+<p><em>Cube</em>:ISAT\x02\x00<em>3\x01\x00</em>3\x10\x00*3 + “Cube generated Secret Key”<br><img src="/2017/09/27/Burglar-and-Hacker/step2.png" alt=""></p>
+<p><em>加密算法</em>:app利用Ipu(在SSRF小节处获得的密钥)和接收到的”Cube generated Secret Key”来做运算，从而获得一个新的密钥。iSmartAlarm使用XXTEA加密算法（尽管它们的实现被破解）。之后，反转XXTEA加密算法的输出就可以得到新的密钥:”new key”。所以一旦我们有Ipu，我们可以让alarm来做任何我们想要的事情。加密密钥”new key”的创建如下所示:<br>reverse(xxtea_encrypt(reversed(“secret_key”), reversed(“IPU_key”)))<br>该操作的结果作为最终的密钥，对发往cube的命令做签名。<br>接下来app发送如下数据继续身份验证过程:<br><em>App</em>:ISAT\x03\x00<em>3\x01\x00</em>3\x10\x00*3 + “new key”<br><img src="/2017/09/27/Burglar-and-Hacker/step3.png" alt=""></p>
+<p><em>Cube</em>:ISAT\x04\x00<em>3\x01\x00</em>3\x01\x00<em>3\x01<br>这会导致iSmartAlarm Cube的第三和第四个漏洞:</em>Authentication Bypass and Incorrect Access Control<em><br>使用新创建的密钥，我们现在可以发送任何我们想要的命令到cube - disarm，arm或者panic。
+</em>DISARM<em> ISATP\x00</em>3\x01\x00<em>3\x03\x00</em>3\x01\x002<br><em>ARM</em> ISATP\x00<em>3\x01\x00</em>3\x03\x00<em>3\x01\x000
+</em>PANIC<em> ISATP\x00</em>3\x01\x00<em>3\x03\x00</em>3\x01\x003</p>
+<p>我决定深入研究应用程序，希望我能发现一些东西。幸运的是，我发现这个:<br><img src="/2017/09/27/Burglar-and-Hacker/internal_iSmartAlarm_website.png" alt=""></p>
+<p>看起来是登陆iSmartAlarm某个内部网站。这是非常令人不安，所以我尝试了…<br>(原文后面还有一些关于上报厂商的说明，我就没有罗列出来了)</p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/27/ARM-exploitation-for-IoT-–-Episode-1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          ARM exploitation for IoT – Episode 1
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概览"><span class="nav-number">2.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">3.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL-Certificate-Validation-Vulnerability"><span class="nav-number">3.1.</span> <span class="nav-text">SSL Certificate Validation Vulnerability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSRF"><span class="nav-number">3.2.</span> <span class="nav-text">SSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Denial-of-service-vulnerability"><span class="nav-number">3.3.</span> <span class="nav-text">Denial of service vulnerability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Authentication-Bypass-and-Incorrect-Access-Control"><span class="nav-number">3.4.</span> <span class="nav-text">Authentication Bypass and Incorrect Access Control</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2017 物联网安全技术研究 All Rights Reserved.
+          
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hiero" target="_blank">hiero</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/主页" class="mobile-nav-link">Home</a>
+  
+    <a href="/书籍" class="mobile-nav-link">books</a>
+  
+    <a href="/工具" class="mobile-nav-link">tools</a>
+  
+    <a href="/关于我们" class="mobile-nav-link">about</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

