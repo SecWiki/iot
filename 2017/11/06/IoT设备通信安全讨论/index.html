@@ -37,7 +37,7 @@
 <meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/18">
 <meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/19">
 <meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/20">
-<meta property="og:updated_time" content="2017-11-06T05:02:51.453Z">
+<meta property="og:updated_time" content="2017-11-06T05:06:39.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IoT设备通信安全讨论">
 <meta name="twitter:description" content="原文地址：http://mp.weixin.qq.com/s/8qyV7e7466UZkmVit4921w作者：360CERT">
@@ -162,27 +162,27 @@ var themeMenus = {};
       
         <p>原文地址：<a href="http://mp.weixin.qq.com/s/8qyV7e7466UZkmVit4921w" target="_blank" rel="external">http://mp.weixin.qq.com/s/8qyV7e7466UZkmVit4921w</a><br>作者：360CERT</p>
 <a id="more"></a>
-<p><img src="/2017/11/06/IoT设备通信安全讨论/0" alt=""><br>0x00 序言<br>        IoT设备日益增多的今天,以及智能家居这一话题愈发火热,智能家居市场正在飞速的壮大和发展,无数IoT设备正在从影片中不断的走向用户的身边.但是这其中却拥有着大量的安全问题和隐患。<br>        此次以结合实际案例的方式来谈一谈目前国内IoT市场中普遍存在的安全问题。<br>0x01 历史回顾<br>        在过去的一段时间内也曾暴露出了很多很多的IoT设备的安全问题<br><img src="/2017/11/06/IoT设备通信安全讨论/1" alt=""><br>        可以看到自15年开始就频繁受到广大的黑/白帽子的关注了<br>Mirai<br>        而在去年2016年9月-10月期间<code>Mirai</code>在全球范围内爆发<br><img src="/2017/11/06/IoT设备通信安全讨论/2" alt=""><br>Mirai的感染模式</p>
+<p><img src="/2017/11/06/IoT设备通信安全讨论/0" alt=""></p>
+<h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><pre><code>IoT设备日益增多的今天,以及智能家居这一话题愈发火热,智能家居市场正在飞速的壮大和发展,无数IoT设备正在从影片中不断的走向用户的身边.但是这其中却拥有着大量的安全问题和隐患。
+此次以结合实际案例的方式来谈一谈目前国内IoT市场中普遍存在的安全问题。
+</code></pre><h1 id="历史回顾"><a href="#历史回顾" class="headerlink" title="历史回顾"></a>历史回顾</h1><pre><code>在过去的一段时间内也曾暴露出了很多很多的IoT设备的安全问题
+</code></pre><p><img src="/2017/11/06/IoT设备通信安全讨论/1" alt=""><br>        可以看到自15年开始就频繁受到广大的黑/白帽子的关注了<br>Mirai<br>        而在去年2016年9月-10月期间<code>Mirai</code>在全球范围内爆发<br><img src="/2017/11/06/IoT设备通信安全讨论/2" alt=""><br>Mirai的感染模式</p>
 <ul>
 <li>感染初始设备</li>
 <li>初始设备在网段内进行扫描,并做尝试,将有漏洞的设备IP,PORT等信息上传至Loader服务器</li>
 <li>Loader服务器对新的设备进行控制并下发控制程序</li>
 <li>循环往复</li>
-<li>受控设备足够多后,控制设备对Victim发起DDoS<br><img src="/2017/11/06/IoT设备通信安全讨论/3" alt=""><pre><code>直到2016年10月26日，我们通过Mirai特征搜索shodan发现，当前全球感染Mirai的设备已经超过100万台，其中美国感染设备有418,592台，中国大陆有145,778台，澳大利亚94,912台，日本和中国香港分别为47,198和44,386台。
-</code></pre>IoT reaper<pre><code>而最近则是IoT reaper,从2017-09-13开始,360NetLab捕获到了一个新型的针对IoT设备的恶意样本
-样本中集成了9个IoT漏洞IoT_reaper完全放弃了mirai中利用弱口令猜测的方式，转为利用IoT设备的漏洞植入，当前样本中集成了了9个IoT设备漏洞。最近十天以来，攻击者正在积极的将漏洞利用集成进入样本中，其中一个漏洞在公开后仅2天就被集成。
-</code></pre>IoT_reaper感染流程图<br><img src="/2017/11/06/IoT设备通信安全讨论/4" alt=""><pre><code>IoTroop是IoT_reaper Botnet在网络攻击活动中第一阶段使用的主要payloads，该恶意软件借用了mirai的源代码，但是在几个关键行为上显著区别于mirai，包括：
-</code></pre></li>
+<li>受控设备足够多后,控制设备对Victim发起DDoS<br><img src="/2017/11/06/IoT设备通信安全讨论/3" alt=""><br>45,778台，澳大利亚94,912台，日本和中国香港分别为47,198和44,386台。<br>IoT reaper<br>而最近则是IoT reaper,从2017-09-13开始,360NetLab捕获到了一个新型的针对IoT设备的恶意样本<br>样本中集成了9个IoT漏洞IoT_reaper完全放弃了mirai中利用弱口令猜测的方式，转为利用IoT设备的漏洞植入，当前样本中集成了了9个IoT设备漏洞。最近十天以来，攻击者正在积极的将漏洞利用集成进入样本中，其中一个漏洞在公开后仅2天就被集成。<br>IoT_reaper感染流程图<br><img src="/2017/11/06/IoT设备通信安全讨论/4" alt=""><br>IoTroop是IoT_reaper Botnet在网络攻击活动中第一阶段使用的主要payloads，该恶意软件借用了mirai的源代码，但是在几个关键行为上显著区别于mirai，包括：</li>
 </ul>
 <ol>
 <li>C&amp;C服务器已经完全被重新设计，并使用了新的后台。 另外，IoTroop的C&amp;C服务器是用PHP编写的，而原来的Mirai C&amp;C服务器是用GO编写的。</li>
 <li>随着C&amp;C后台的变化，C&amp;C通信协议也发生了变化，IoTroop恶意软件使用了全新的C&amp;C通信方式。</li>
 <li>IoTroop恶意软件不再使用弱口令猜测、而是使用IoT设备漏洞，扫描效率大大提高。</li>
-<li>IoTroop恶意软件不包含任何DDoS功能，实际上我们也没有观察到与该恶意软件有关的任何DDoS攻击，但所有与DDoS相关的功能都由C&amp;C后台进行协调和管理，并作为单独的模块下载。<br>IoT_reaper包含的一些漏洞<br><img src="/2017/11/06/IoT设备通信安全讨论/5" alt=""><br>可以看到的是,IoT设备的安全问题正在日益突出,并日益严重<br>虽然厂商心中已经有了一定的警戒,并采取了一定的措施但是还远远不够<br>0x02 现状<br>  攻击中最复杂的部分是取得与相关设备的连接问题,只要能够连接上能够与之通信,可以说被控制被劫持都只是一些相对较小的问题了<br>  在连接上的安全措施往往是难以做到尽善尽美的,那么我们就着重来看看目前国内市场上<code>IoT</code>设备在连接上存在的诸多问题<br>  在iot设备领域存在一个是否致命的问题,就是产品更迭周期,在此领域因为涵盖着硬件设备,在升级上往往难以针对某些领域的问题进行修复<br>  目前在国内的形式大多数是采用的多方合作,而杂合而成的一个十分混乱的iot生态<ol>
+<li>IoTroop恶意软件不包含任何DDoS功能，实际上我们也没有观察到与该恶意软件有关的任何DDoS攻击，但所有与DDoS相关的功能都由C&amp;C后台进行协调和管理，并作为单独的模块下载。<br>IoT_reaper包含的一些漏洞<br><img src="/2017/11/06/IoT设备通信安全讨论/5" alt=""><br>可以看到的是,IoT设备的安全问题正在日益突出,并日益严重<br>虽然厂商心中已经有了一定的警戒,并采取了一定的措施但是还远远不够<h1 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h1>  攻击中最复杂的部分是取得与相关设备的连接问题,只要能够连接上能够与之通信,可以说被控制被劫持都只是一些相对较小的问题了<br>  在连接上的安全措施往往是难以做到尽善尽美的,那么我们就着重来看看目前国内市场上<code>IoT</code>设备在连接上存在的诸多问题<br>  在iot设备领域存在一个是否致命的问题,就是产品更迭周期,在此领域因为涵盖着硬件设备,在升级上往往难以针对某些领域的问题进行修复<br>  目前在国内的形式大多数是采用的多方合作,而杂合而成的一个十分混乱的iot生态<ol>
 <li>A厂商从B厂商处采购主控芯片和开发套件,然后自己由这个主控芯片和开发套件对一些传感器进行集成连接,进行一些简单的包装</li>
 <li>A厂商和C厂商进行深度合作在A厂商的APP中集成C厂商的控制程序,从而实现A厂商具有更为广大的智能家居生态</li>
 <li>A厂商完成了硬件上的设计生产,而APP方面则采取外包方式获取</li>
-<li>为了照顾设备的网络情况以及性能情况作出的妥协<br>在国内上述三种情况是十分普遍的,这种树状甚至是叉装的生态环境势必会产生无数的安全问题<br>反过来回顾世界前列的互联网公司里Apple,是唯一的一家最接近垂直生态公司,即使是这样,每年也有大量的漏洞被发现,就更何况国内的这些公司了<br>0x03<br>分析<br>与上面的点一一对应</li>
+<li>为了照顾设备的网络情况以及性能情况作出的妥协<br>在国内上述三种情况是十分普遍的,这种树状甚至是叉装的生态环境势必会产生无数的安全问题<br>反过来回顾世界前列的互联网公司里Apple,是唯一的一家最接近垂直生态公司,即使是这样,每年也有大量的漏洞被发现,就更何况国内的这些公司了<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1>与上面的点一一对应</li>
 <li>由于采用采购和使用开发套件的方式,势必会有大部分的逻辑是和供应商所提供的运行模式和设计理念是一致的,从这里入手就很容易看到对应的A厂商的设备的大致工作模式<br>实例：<br><img src="/2017/11/06/IoT设备通信安全讨论/6" alt=""><br><img src="/2017/11/06/IoT设备通信安全讨论/7" alt=""><br>根据上面的文档可以看出这里设计出了一种工作模式,在智能硬件中会有一份主体固件user1.bin,然后在后期可以通过user2.bin的方式对设备进行一定程度的更新。<br>为什么要说一定程度呢?首先,这里采用这种模式就肯定是为了减少更新完整固件包所带来的更新时间和下载内容大小,也从而被获得后直接逆向出完整设备工作流程的危害.</li>
 </ol>
 </li>
@@ -226,8 +226,8 @@ A厂商和C厂商的合作使得A厂商几乎只承担的了集成SDK的成本�
 - 对设备控制权限变更无校验,任何人可以在任何情况下对设备进行重新绑定,解绑,添加信任用户等危险操作
 - 并在特殊的构造下,可以直接获取到任意设备的控制密码
 在通信过程中消息内容采用固定格式
-</code></pre><p>wan_phone%015bee58-xxxx-xxxx-xxxx-31598127xxxx%password%open%relay<br>        可以看到中间的uuid作为标识password是控制密码open是控制指令<br>        那么其实很好类推关闭之类的指令<br>        在APP的登录过程中,用户名为手机号<br>        局域网内采用UDP无连接通信,通过向设备发送连续的UDP包来获得设备信息,同时为了更快的感同一局域网内的设备状态,采用广播<code>心跳</code>包的形式对所有在网内设备进行查询,同时所有设备收到此包后会回复自己的状态,以及控制密码的值,来确保用户能完成良好的控制<br>        其次在标识上仅使用mac地址作为标识,这就导致,如果在相同包体里改变mac地址即可完成对设备的控制。<br><img src="/2017/11/06/IoT设备通信安全讨论/17" alt=""><br>        可以通过分析流量翻译出大量的操作指令<br><img src="/2017/11/06/IoT设备通信安全讨论/18" alt=""><br>        可看到流量中连续的广播包在发送<br><img src="/2017/11/06/IoT设备通信安全讨论/19" alt=""><br>        广播后,设备响应,解密后就能直接得到设备的控制密码<br><img src="/2017/11/06/IoT设备通信安全讨论/20" alt=""><br>用脚本直接解密XMPP流量<br>[破解案例] : <a href="http://bobao.360.cn/learning/detail/163.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/163.html</a><br>        而局域网和互联网通信内容又大相径庭,即使设计了一个良好的互联网通信模型,也会被找到破绽<br>0x04 总结</p>
-</blockquote>
+</code></pre><p>wan_phone%015bee58-xxxx-xxxx-xxxx-31598127xxxx%password%open%relay<br>        可以看到中间的uuid作为标识password是控制密码open是控制指令<br>        那么其实很好类推关闭之类的指令<br>        在APP的登录过程中,用户名为手机号<br>        局域网内采用UDP无连接通信,通过向设备发送连续的UDP包来获得设备信息,同时为了更快的感同一局域网内的设备状态,采用广播<code>心跳</code>包的形式对所有在网内设备进行查询,同时所有设备收到此包后会回复自己的状态,以及控制密码的值,来确保用户能完成良好的控制<br>        其次在标识上仅使用mac地址作为标识,这就导致,如果在相同包体里改变mac地址即可完成对设备的控制。<br><img src="/2017/11/06/IoT设备通信安全讨论/17" alt=""><br>        可以通过分析流量翻译出大量的操作指令<br><img src="/2017/11/06/IoT设备通信安全讨论/18" alt=""><br>        可看到流量中连续的广播包在发送<br><img src="/2017/11/06/IoT设备通信安全讨论/19" alt=""><br>        广播后,设备响应,解密后就能直接得到设备的控制密码<br><img src="/2017/11/06/IoT设备通信安全讨论/20" alt=""><br>用脚本直接解密XMPP流量<br>[破解案例] : <a href="http://bobao.360.cn/learning/detail/163.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/163.html</a><br>        而局域网和互联网通信内容又大相径庭,即使设计了一个良好的互联网通信模型,也会被找到破绽</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1></blockquote>
 <p>根据此次分析,IoT生态混乱,通过实例分析验证了很多安全问题,以及潜在隐患,对现有用户会产生用户敏感信息泄露和IoT设备为攻击者大开方便之门的安全问题.最终甚至危害到广大用户的人生以及财务安全。<br>已有的改进</p>
 <pre><code>- 尽量避免了将设备直接暴露在公网中
 - 已有一些通信上的加密措施,不再是任何人都可以向设备发送消息
@@ -241,8 +241,7 @@ A厂商和C厂商的合作使得A厂商几乎只承担的了集成SDK的成本�
 这些存在漏洞的点都很普遍并容易被探测和发现,而造成的危害和损失却是巨大的
 而抛开技术上的问题,在实际的物理世界中,核心的问题在于厂商不够重视安全,没有一个很好的统一解决方案,对应漏洞反应平平,甚至予以忽视,导致IoT安全漏洞和事件频发,各种黑天鹅事件告急
 过去的事件都以在公网上的设备受到攻击而需求感染设备去扫描发现新的设备,而现在只要一攻破上述任一一条,则可以在存在RCE等高危漏洞情况下迅速感染所有在网设备,攻击的成本大为降低.对于IoT安全社会各界应该予以更为重复的重视
-</code></pre><p>0x05 参考</p>
-<ol>
+</code></pre><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
 <li><a href="http://bobao.360.cn/learning/detail/3143.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/3143.html</a></li>
 <li><a href="https://paper.seebug.org/142/" target="_blank" rel="external">https://paper.seebug.org/142/</a></li>
 <li><a href="http://www.freebuf.com/articles/terminal/117927.html" target="_blank" rel="external">http://www.freebuf.com/articles/terminal/117927.html</a></li>
