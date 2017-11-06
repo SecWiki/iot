@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iot设备通信安全讨论 | 物联网安全技术研究</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="原文地址：http://mp.weixin.qq.com/s/8qyV7e7466UZkmVit4921w作者：360CERT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IoT设备通信安全讨论">
+<meta property="og:url" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/index.html">
+<meta property="og:site_name" content="物联网安全技术研究">
+<meta property="og:description" content="原文地址：http://mp.weixin.qq.com/s/8qyV7e7466UZkmVit4921w作者：360CERT">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/0">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/1">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/2">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/3">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/4">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/5">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/6">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/7">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/8">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/9">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/10">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/11">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/12">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/13">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/14">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/15">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/16">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/17">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/18">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/19">
+<meta property="og:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/20">
+<meta property="og:updated_time" content="2017-11-06T05:02:51.453Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IoT设备通信安全讨论">
+<meta name="twitter:description" content="原文地址：http://mp.weixin.qq.com/s/8qyV7e7466UZkmVit4921w作者：360CERT">
+<meta name="twitter:image" content="http://yoursite.com/2017/11/06/IoT设备通信安全讨论/0">
+  
+    <link rel="alternate" href="/atom.xml" title="物联网安全技术研究" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/hiero.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+  
+
+</head>
+
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "主页"; 
+
+  themeMenus["/books"] = "书籍"; 
+
+  themeMenus["/tools"] = "工具"; 
+
+  themeMenus["/about"] = "关于"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="物联网安全技术研究" rel="home"> 物联网安全技术研究 </a>
+            
+          </h1>
+
+          
+            <div class="site-description">一个专注于物联网安全技术研究与交流的小站</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">主页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/books">书籍</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tools">工具</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-IoT设备通信安全讨论"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      IoT设备通信安全讨论
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	Posted on <a href="/2017/11/06/IoT设备通信安全讨论/" class="article-date">
+	  <time datetime="2017-11-06T03:23:54.000Z" itemprop="datePublished">十一月 6, 2017</time>
+	</a>
+
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文地址：<a href="http://mp.weixin.qq.com/s/8qyV7e7466UZkmVit4921w" target="_blank" rel="external">http://mp.weixin.qq.com/s/8qyV7e7466UZkmVit4921w</a><br>作者：360CERT</p>
+<a id="more"></a>
+<p><img src="/2017/11/06/IoT设备通信安全讨论/0" alt=""><br>0x00 序言<br>        IoT设备日益增多的今天,以及智能家居这一话题愈发火热,智能家居市场正在飞速的壮大和发展,无数IoT设备正在从影片中不断的走向用户的身边.但是这其中却拥有着大量的安全问题和隐患。<br>        此次以结合实际案例的方式来谈一谈目前国内IoT市场中普遍存在的安全问题。<br>0x01 历史回顾<br>        在过去的一段时间内也曾暴露出了很多很多的IoT设备的安全问题<br><img src="/2017/11/06/IoT设备通信安全讨论/1" alt=""><br>        可以看到自15年开始就频繁受到广大的黑/白帽子的关注了<br>Mirai<br>        而在去年2016年9月-10月期间<code>Mirai</code>在全球范围内爆发<br><img src="/2017/11/06/IoT设备通信安全讨论/2" alt=""><br>Mirai的感染模式</p>
+<ul>
+<li>感染初始设备</li>
+<li>初始设备在网段内进行扫描,并做尝试,将有漏洞的设备IP,PORT等信息上传至Loader服务器</li>
+<li>Loader服务器对新的设备进行控制并下发控制程序</li>
+<li>循环往复</li>
+<li>受控设备足够多后,控制设备对Victim发起DDoS<br><img src="/2017/11/06/IoT设备通信安全讨论/3" alt=""><pre><code>直到2016年10月26日，我们通过Mirai特征搜索shodan发现，当前全球感染Mirai的设备已经超过100万台，其中美国感染设备有418,592台，中国大陆有145,778台，澳大利亚94,912台，日本和中国香港分别为47,198和44,386台。
+</code></pre>IoT reaper<pre><code>而最近则是IoT reaper,从2017-09-13开始,360NetLab捕获到了一个新型的针对IoT设备的恶意样本
+样本中集成了9个IoT漏洞IoT_reaper完全放弃了mirai中利用弱口令猜测的方式，转为利用IoT设备的漏洞植入，当前样本中集成了了9个IoT设备漏洞。最近十天以来，攻击者正在积极的将漏洞利用集成进入样本中，其中一个漏洞在公开后仅2天就被集成。
+</code></pre>IoT_reaper感染流程图<br><img src="/2017/11/06/IoT设备通信安全讨论/4" alt=""><pre><code>IoTroop是IoT_reaper Botnet在网络攻击活动中第一阶段使用的主要payloads，该恶意软件借用了mirai的源代码，但是在几个关键行为上显著区别于mirai，包括：
+</code></pre></li>
+</ul>
+<ol>
+<li>C&amp;C服务器已经完全被重新设计，并使用了新的后台。 另外，IoTroop的C&amp;C服务器是用PHP编写的，而原来的Mirai C&amp;C服务器是用GO编写的。</li>
+<li>随着C&amp;C后台的变化，C&amp;C通信协议也发生了变化，IoTroop恶意软件使用了全新的C&amp;C通信方式。</li>
+<li>IoTroop恶意软件不再使用弱口令猜测、而是使用IoT设备漏洞，扫描效率大大提高。</li>
+<li>IoTroop恶意软件不包含任何DDoS功能，实际上我们也没有观察到与该恶意软件有关的任何DDoS攻击，但所有与DDoS相关的功能都由C&amp;C后台进行协调和管理，并作为单独的模块下载。<br>IoT_reaper包含的一些漏洞<br><img src="/2017/11/06/IoT设备通信安全讨论/5" alt=""><br>可以看到的是,IoT设备的安全问题正在日益突出,并日益严重<br>虽然厂商心中已经有了一定的警戒,并采取了一定的措施但是还远远不够<br>0x02 现状<br>  攻击中最复杂的部分是取得与相关设备的连接问题,只要能够连接上能够与之通信,可以说被控制被劫持都只是一些相对较小的问题了<br>  在连接上的安全措施往往是难以做到尽善尽美的,那么我们就着重来看看目前国内市场上<code>IoT</code>设备在连接上存在的诸多问题<br>  在iot设备领域存在一个是否致命的问题,就是产品更迭周期,在此领域因为涵盖着硬件设备,在升级上往往难以针对某些领域的问题进行修复<br>  目前在国内的形式大多数是采用的多方合作,而杂合而成的一个十分混乱的iot生态<ol>
+<li>A厂商从B厂商处采购主控芯片和开发套件,然后自己由这个主控芯片和开发套件对一些传感器进行集成连接,进行一些简单的包装</li>
+<li>A厂商和C厂商进行深度合作在A厂商的APP中集成C厂商的控制程序,从而实现A厂商具有更为广大的智能家居生态</li>
+<li>A厂商完成了硬件上的设计生产,而APP方面则采取外包方式获取</li>
+<li>为了照顾设备的网络情况以及性能情况作出的妥协<br>在国内上述三种情况是十分普遍的,这种树状甚至是叉装的生态环境势必会产生无数的安全问题<br>反过来回顾世界前列的互联网公司里Apple,是唯一的一家最接近垂直生态公司,即使是这样,每年也有大量的漏洞被发现,就更何况国内的这些公司了<br>0x03<br>分析<br>与上面的点一一对应</li>
+<li>由于采用采购和使用开发套件的方式,势必会有大部分的逻辑是和供应商所提供的运行模式和设计理念是一致的,从这里入手就很容易看到对应的A厂商的设备的大致工作模式<br>实例：<br><img src="/2017/11/06/IoT设备通信安全讨论/6" alt=""><br><img src="/2017/11/06/IoT设备通信安全讨论/7" alt=""><br>根据上面的文档可以看出这里设计出了一种工作模式,在智能硬件中会有一份主体固件user1.bin,然后在后期可以通过user2.bin的方式对设备进行一定程度的更新。<br>为什么要说一定程度呢?首先,这里采用这种模式就肯定是为了减少更新完整固件包所带来的更新时间和下载内容大小,也从而被获得后直接逆向出完整设备工作流程的危害.</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>iot设备大多采用低成本的处理控制单元和极小的板载存储flash芯片,已经极小的内存容量,如果采取互联网全量更新,首先是机器本身无法存储,处理器,和内存也无法胜任此工作</li>
+<li>iot设备为了长期稳定的工作,肯定无法去更新核心部分的工作,只会以修复一些细小的功能性问题而更新<pre><code>那这里从实际的案例出发对这个现象的论证就是
+在2015年的A厂商在通信过程中使用的AES加密,但在APK中由于开发没有良好的安全意识,导致被轻易的提取出了AES的密钥,而在我们进行分析的今天,该厂商的密钥也没有更换,亦可以在网上搜索得到这串长期没有更换的密钥进行通信消息的解密
+而在今天厂商也仅仅只是将其放在了一个动态链接库中稍加混淆
+</code></pre><img src="/2017/11/06/IoT设备通信安全讨论/8" alt=""><br>就这样一个问题,在一个厂商长发2年都没有一个良好的解决方案足以说明问题的严重性<pre><code>2. 在厂商与厂商的合作之间势必会相互开放sdk或者api接口以及通信密钥,一系列相关资源,这就导致了,但凡有一家合作厂商的安全做的不够出色这就会导致短板效应的出现而导致拉低了众多厂商的安全等级
+A厂商和C厂商的合作使得A厂商几乎只承担的了集成SDK的成本就获得了一项智能家居产品,而C厂商也仅仅是提供了SDK就拓宽了自己的销售渠道,这样的合作模式肯定受到双方欢迎的,但是这之间的安全问题是值得关注的
+- 通信的密钥
+- 身份TOKEN
+- 完整的设备信息
+- 完整的控制请求
+根据上述的问题,再结合一定的分析往往就能很容易的得出一份令人满意的漏洞
+&gt; 实例:
+</code></pre><img src="/2017/11/06/IoT设备通信安全讨论/9" alt=""><pre><code>可以很清晰的看到,拥有SDK的`TOKEN`,完整的控制函数
+</code></pre><img src="/2017/11/06/IoT设备通信安全讨论/10" alt=""><br><img src="/2017/11/06/IoT设备通信安全讨论/11" alt=""><br>可以看到通信的地址,以及通讯认证的详细过程<br><img src="/2017/11/06/IoT设备通信安全讨论/12" alt=""><br>可以看到另一家合作厂商的密钥位置<br><img src="/2017/11/06/IoT设备通信安全讨论/13" alt=""><br>完成了对该厂商的通信,而且可以同样看到,该厂商也是有着接口无认证的问题<pre><code>3. APP的编写,这明显不是传统的硬件厂商所擅长的,而外包基本成了主要解决办法
+然而厂商也自身没有太高的安全意识在验收成果的时候,主要着力于功能的完善情况,以及界面交互是否有效上面这就会导致许多隐患
+- 通信模型设计不当
+- 验证认证流程存在绕过,或极不完善
+- 查询接口权限认证粗糙
+- 涉及服务器敏感信息泄露
+这诸多问题都是一个个良好的突破口和值得关注的点
+&gt; 实例:
+</code></pre></li>
+</ul>
+<p>可以看到另一处<code>TCP</code>直接通信的地址和端口<br><img src="/2017/11/06/IoT设备通信安全讨论/14" alt=""><br>        这里可以看到,单凭一个手机号就获取了大量设备关键信息,包括密码等<br><img src="/2017/11/06/IoT设备通信安全讨论/15" alt=""><br>        这里可以看到,以任意设备<code>mac</code>来获取对应的用户手机号的操作<br><img src="/2017/11/06/IoT设备通信安全讨论/16" alt=""><br>        再根据已掌握的信息,进行设备控制指令的生成也是十分简单</p>
+<pre><code>4. 在结合国内的平均网络质量在全球排名处于中下游水平的情况下,并且要照顾多地区的复杂网络环境
+在与智能硬件的通信过程中势必会有很多的妥协,因为产品的第一点是务必满足有良好的用户体验
+进而就会产生
+- 与服务器通信认证手段单一
+- 身份识别过程简单
+- 消息内容格式化程度高
+- 分两套通信手段,一套局域网,一套互联网
+- 服务器通信内容不认证用户身份
+</code></pre><blockquote>
+<p>实例:<br>        A厂商在为了解决远程控制这一问题上<br>        互联网层面远程控制由XMPP协议进行通信<br>        但国内的厂商在使用上仅仅着手于XMPP协议的及时性和开放性,对于一些必要的安全措施并没有进行良好的设计<br>        A厂商的XMPP的设计模式下,受控端设备,以及控制端设备全凭MAC地址或是UUID作为登录凭据,并且在密码设计上采用与用户名一样的方式.这就导致可以使用遍历MAC地址的方式将该厂商所有设备踢下线,使其无法正常通信或是响应命令.或是在APP端注册一个账号,然后获得<code>UUID</code>便可以向任意在网设备发送控制指令,这对于智能产品来说危害是巨大的,也会导致用户无法获得正常的体验<br>        A厂商该特意设计了一个控制服务器,来接受和记录设备的绑定以及设备状态查询的服务,该服务器没有任何权限设置,亦无token之类的校验,可以抓包后任意重放,来获得任意设备mac所绑定的用户手机号,同时,还有一个逻辑错误,以及一个重大的安全错误</p>
+<pre><code>- 在服务器上存储用户设备控制密码
+- 对设备控制权限变更无校验,任何人可以在任何情况下对设备进行重新绑定,解绑,添加信任用户等危险操作
+- 并在特殊的构造下,可以直接获取到任意设备的控制密码
+在通信过程中消息内容采用固定格式
+</code></pre><p>wan_phone%015bee58-xxxx-xxxx-xxxx-31598127xxxx%password%open%relay<br>        可以看到中间的uuid作为标识password是控制密码open是控制指令<br>        那么其实很好类推关闭之类的指令<br>        在APP的登录过程中,用户名为手机号<br>        局域网内采用UDP无连接通信,通过向设备发送连续的UDP包来获得设备信息,同时为了更快的感同一局域网内的设备状态,采用广播<code>心跳</code>包的形式对所有在网内设备进行查询,同时所有设备收到此包后会回复自己的状态,以及控制密码的值,来确保用户能完成良好的控制<br>        其次在标识上仅使用mac地址作为标识,这就导致,如果在相同包体里改变mac地址即可完成对设备的控制。<br><img src="/2017/11/06/IoT设备通信安全讨论/17" alt=""><br>        可以通过分析流量翻译出大量的操作指令<br><img src="/2017/11/06/IoT设备通信安全讨论/18" alt=""><br>        可看到流量中连续的广播包在发送<br><img src="/2017/11/06/IoT设备通信安全讨论/19" alt=""><br>        广播后,设备响应,解密后就能直接得到设备的控制密码<br><img src="/2017/11/06/IoT设备通信安全讨论/20" alt=""><br>用脚本直接解密XMPP流量<br>[破解案例] : <a href="http://bobao.360.cn/learning/detail/163.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/163.html</a><br>        而局域网和互联网通信内容又大相径庭,即使设计了一个良好的互联网通信模型,也会被找到破绽<br>0x04 总结</p>
+</blockquote>
+<p>根据此次分析,IoT生态混乱,通过实例分析验证了很多安全问题,以及潜在隐患,对现有用户会产生用户敏感信息泄露和IoT设备为攻击者大开方便之门的安全问题.最终甚至危害到广大用户的人生以及财务安全。<br>已有的改进</p>
+<pre><code>- 尽量避免了将设备直接暴露在公网中
+- 已有一些通信上的加密措施,不再是任何人都可以向设备发送消息
+- 避免IoT设备的固件开发下载
+</code></pre><p>尚存或演进的问题</p>
+<pre><code>- 以CS模式通信,但是通信结构和验证过程过于简单或没有,导致一旦攻破便可危害所有在网设备
+- APP的安全开发意识十分薄弱
+- 厂商合作之间的信任链单一,信任关系简单
+- 多模式设计下,短板效应明显,在某一模式安全性的缺失则导致整套安全系统崩溃
+- 对用户信息,设备的存储和查询,存在致命的缺陷,对用户信息无任何保护手段,很容易获得设备用户的对应关系
+这些存在漏洞的点都很普遍并容易被探测和发现,而造成的危害和损失却是巨大的
+而抛开技术上的问题,在实际的物理世界中,核心的问题在于厂商不够重视安全,没有一个很好的统一解决方案,对应漏洞反应平平,甚至予以忽视,导致IoT安全漏洞和事件频发,各种黑天鹅事件告急
+过去的事件都以在公网上的设备受到攻击而需求感染设备去扫描发现新的设备,而现在只要一攻破上述任一一条,则可以在存在RCE等高危漏洞情况下迅速感染所有在网设备,攻击的成本大为降低.对于IoT安全社会各界应该予以更为重复的重视
+</code></pre><p>0x05 参考</p>
+<ol>
+<li><a href="http://bobao.360.cn/learning/detail/3143.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/3143.html</a></li>
+<li><a href="https://paper.seebug.org/142/" target="_blank" rel="external">https://paper.seebug.org/142/</a></li>
+<li><a href="http://www.freebuf.com/articles/terminal/117927.html" target="_blank" rel="external">http://www.freebuf.com/articles/terminal/117927.html</a></li>
+<li><a href="http://blog.netlab.360.com/iot-reaper-a-quick-summary-of-a-rapid-spreading-new-iot-botnet/" target="_blank" rel="external">http://blog.netlab.360.com/iot-reaper-a-quick-summary-of-a-rapid-spreading-new-iot-botnet/</a></li>
+<li><a href="http://bobao.360.cn/learning/detail/4635.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/4635.html</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+      
+
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/27/五大顶级物联网安全公司的安全建设思路及产品/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">五大顶级物联网安全公司的安全建设思路及产品</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2017 物联网安全技术研究 All Rights Reserved.
+          
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hiero" target="_blank">hiero</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/books" class="mobile-nav-link">书籍</a>
+  
+    <a href="/tools" class="mobile-nav-link">工具</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
